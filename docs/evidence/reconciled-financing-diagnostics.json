@@ -1,0 +1,924 @@
+{
+  "benchmark_id": "bench_8c8bf67ae48c5ab3eebbefb1",
+  "calibration_id": "sf_public_20261028_200723_4eadc5",
+  "direct_shocks": [
+    {
+      "seed": 41,
+      "before": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "active",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 456400,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_7": 0,
+            "loan_household_9": 0,
+            "loan_household_10": 0,
+            "loan_household_11": 0,
+            "loan_household_12": 0,
+            "loan_household_14": 0,
+            "loan_household_16": 0,
+            "loan_household_18": 0,
+            "loan_household_33": 0,
+            "loan_household_38": 0,
+            "interbank_asset_bank_2": 5445803,
+            "risky_assets": 1939724
+          },
+          "liabilities": {
+            "deposit_business_1": 290360,
+            "deposit_business_6": 258800,
+            "deposit_household_7": 68820,
+            "deposit_household_9": 129718,
+            "deposit_household_10": 89507,
+            "deposit_household_11": 137511,
+            "deposit_household_12": 136945,
+            "deposit_household_14": 110085,
+            "deposit_household_16": 51867,
+            "deposit_household_18": 144404,
+            "deposit_household_33": 108620,
+            "deposit_household_38": 55495,
+            "interbank_debt_bank_5": 5445803
+          },
+          "equity": {
+            "equity": 813992
+          },
+          "assets_cents": 7841927,
+          "liabilities_cents": 7027935,
+          "equity_cents": 813992,
+          "balanced": true
+        },
+        "capital_ratio": 0.10379999711805529,
+        "liquidity_ratio": 0.2884715055380967,
+        "lending_available": true,
+        "settlement_liquidity_ratio": 1.5144905734793304
+      },
+      "after": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "stressed",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 456400,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_7": 0,
+            "loan_household_9": 0,
+            "loan_household_10": 0,
+            "loan_household_11": 0,
+            "loan_household_12": 0,
+            "loan_household_14": 0,
+            "loan_household_16": 0,
+            "loan_household_18": 0,
+            "loan_household_33": 0,
+            "loan_household_38": 0,
+            "interbank_asset_bank_2": 5445803,
+            "risky_assets": 1163835
+          },
+          "liabilities": {
+            "deposit_business_1": 290360,
+            "deposit_business_6": 258800,
+            "deposit_household_7": 68820,
+            "deposit_household_9": 129718,
+            "deposit_household_10": 89507,
+            "deposit_household_11": 137511,
+            "deposit_household_12": 136945,
+            "deposit_household_14": 110085,
+            "deposit_household_16": 51867,
+            "deposit_household_18": 144404,
+            "deposit_household_33": 108620,
+            "deposit_household_38": 55495,
+            "interbank_debt_bank_5": 5445803
+          },
+          "equity": {
+            "equity": 38103
+          },
+          "assets_cents": 7066038,
+          "liabilities_cents": 7027935,
+          "equity_cents": 38103,
+          "balanced": true
+        },
+        "capital_ratio": 0.005392413683594682,
+        "liquidity_ratio": 0.2884715055380967,
+        "lending_available": false,
+        "settlement_liquidity_ratio": 1.024083325537945
+      },
+      "loss_cents": 775889
+    },
+    {
+      "seed": 42,
+      "before": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "active",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 561875,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_1": 0,
+            "loan_household_5": 0,
+            "loan_household_10": 0,
+            "loan_household_11": 0,
+            "loan_household_15": 0,
+            "loan_household_18": 0,
+            "loan_household_22": 0,
+            "loan_household_23": 0,
+            "loan_household_29": 0,
+            "loan_household_31": 0,
+            "loan_household_33": 0,
+            "loan_household_38": 0,
+            "interbank_asset_bank_2": 5325448,
+            "risky_assets": 3766888
+          },
+          "liabilities": {
+            "deposit_business_1": 1970850,
+            "deposit_business_6": 72590,
+            "deposit_household_1": 53905,
+            "deposit_household_5": 149458,
+            "deposit_household_10": 145647,
+            "deposit_household_11": 99615,
+            "deposit_household_15": 99823,
+            "deposit_household_18": 129840,
+            "deposit_household_22": 91347,
+            "deposit_household_23": 77653,
+            "deposit_household_29": 64371,
+            "deposit_household_31": 100432,
+            "deposit_household_33": 139166,
+            "deposit_household_38": 131959,
+            "interbank_debt_bank_5": 5325448
+          },
+          "equity": {
+            "equity": 1002107
+          },
+          "assets_cents": 9654211,
+          "liabilities_cents": 8652104,
+          "equity_cents": 1002107,
+          "balanced": true
+        },
+        "capital_ratio": 0.10379998945537859,
+        "liquidity_ratio": 0.168900842167029,
+        "lending_available": true,
+        "settlement_liquidity_ratio": 1.3012355350237597
+      },
+      "after": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "insolvent",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 561875,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_1": 0,
+            "loan_household_5": 0,
+            "loan_household_10": 0,
+            "loan_household_11": 0,
+            "loan_household_15": 0,
+            "loan_household_18": 0,
+            "loan_household_22": 0,
+            "loan_household_23": 0,
+            "loan_household_29": 0,
+            "loan_household_31": 0,
+            "loan_household_33": 0,
+            "loan_household_38": 0,
+            "interbank_asset_bank_2": 5325448,
+            "risky_assets": 2260133
+          },
+          "liabilities": {
+            "deposit_business_1": 1970850,
+            "deposit_business_6": 72590,
+            "deposit_household_1": 53905,
+            "deposit_household_5": 149458,
+            "deposit_household_10": 145647,
+            "deposit_household_11": 99615,
+            "deposit_household_15": 99823,
+            "deposit_household_18": 129840,
+            "deposit_household_22": 91347,
+            "deposit_household_23": 77653,
+            "deposit_household_29": 64371,
+            "deposit_household_31": 100432,
+            "deposit_household_33": 139166,
+            "deposit_household_38": 131959,
+            "interbank_debt_bank_5": 5325448
+          },
+          "equity": {
+            "equity": -504648
+          },
+          "assets_cents": 8147456,
+          "liabilities_cents": 8652104,
+          "equity_cents": -504648,
+          "balanced": true
+        },
+        "capital_ratio": -0.061939334192169924,
+        "liquidity_ratio": 0.168900842167029,
+        "lending_available": false,
+        "settlement_liquidity_ratio": 0.8483017180015006
+      },
+      "loss_cents": 1506755
+    },
+    {
+      "seed": 43,
+      "before": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "active",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 431553,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_4": 0,
+            "loan_household_17": 0,
+            "loan_household_23": 0,
+            "loan_household_24": 0,
+            "loan_household_27": 0,
+            "loan_household_37": 0,
+            "loan_household_40": 0,
+            "interbank_asset_bank_2": 5348213,
+            "risky_assets": 1635249
+          },
+          "liabilities": {
+            "deposit_business_1": 362950,
+            "deposit_business_6": 362320,
+            "deposit_household_4": 99264,
+            "deposit_household_17": 88929,
+            "deposit_household_23": 69210,
+            "deposit_household_24": 66519,
+            "deposit_household_27": 62183,
+            "deposit_household_37": 121540,
+            "deposit_household_40": 64208,
+            "interbank_debt_bank_5": 5348213
+          },
+          "equity": {
+            "equity": 769679
+          },
+          "assets_cents": 7415015,
+          "liabilities_cents": 6645336,
+          "equity_cents": 769679,
+          "balanced": true
+        },
+        "capital_ratio": 0.10380005974364179,
+        "liquidity_ratio": 0.3327001371496766,
+        "lending_available": true,
+        "settlement_liquidity_ratio": 1.5933739514294327
+      },
+      "after": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "stressed",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 431553,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_4": 0,
+            "loan_household_17": 0,
+            "loan_household_23": 0,
+            "loan_household_24": 0,
+            "loan_household_27": 0,
+            "loan_household_37": 0,
+            "loan_household_40": 0,
+            "interbank_asset_bank_2": 5348213,
+            "risky_assets": 981150
+          },
+          "liabilities": {
+            "deposit_business_1": 362950,
+            "deposit_business_6": 362320,
+            "deposit_household_4": 99264,
+            "deposit_household_17": 88929,
+            "deposit_household_23": 69210,
+            "deposit_household_24": 66519,
+            "deposit_household_27": 62183,
+            "deposit_household_37": 121540,
+            "deposit_household_40": 64208,
+            "interbank_debt_bank_5": 5348213
+          },
+          "equity": {
+            "equity": 115580
+          },
+          "assets_cents": 6760916,
+          "liabilities_cents": 6645336,
+          "equity_cents": 115580,
+          "balanced": true
+        },
+        "capital_ratio": 0.017095316670108014,
+        "liquidity_ratio": 0.3327001371496766,
+        "lending_available": false,
+        "settlement_liquidity_ratio": 1.0891048882796774
+      },
+      "loss_cents": 654099
+    },
+    {
+      "seed": 44,
+      "before": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "active",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 472511,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_10": 0,
+            "loan_household_11": 0,
+            "loan_household_15": 0,
+            "loan_household_20": 0,
+            "loan_household_23": 0,
+            "loan_household_25": 0,
+            "loan_household_26": 0,
+            "loan_household_35": 0,
+            "loan_household_39": 0,
+            "interbank_asset_bank_2": 5511053,
+            "risky_assets": 2135186
+          },
+          "liabilities": {
+            "deposit_business_1": 703875,
+            "deposit_business_6": 145180,
+            "deposit_household_10": 55694,
+            "deposit_household_11": 146810,
+            "deposit_household_15": 86434,
+            "deposit_household_20": 138587,
+            "deposit_household_23": 50883,
+            "deposit_household_25": 86618,
+            "deposit_household_26": 117139,
+            "deposit_household_35": 141926,
+            "deposit_household_39": 91825,
+            "interbank_debt_bank_5": 5511053
+          },
+          "equity": {
+            "equity": 842726
+          },
+          "assets_cents": 8118750,
+          "liabilities_cents": 7276024,
+          "equity_cents": 842726,
+          "balanced": true
+        },
+        "capital_ratio": 0.10379996920708237,
+        "liquidity_ratio": 0.2677160134642439,
+        "lending_available": true,
+        "settlement_liquidity_ratio": 1.4774730009728205
+      },
+      "after": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "insolvent",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 472511,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_10": 0,
+            "loan_household_11": 0,
+            "loan_household_15": 0,
+            "loan_household_20": 0,
+            "loan_household_23": 0,
+            "loan_household_25": 0,
+            "loan_household_26": 0,
+            "loan_household_35": 0,
+            "loan_household_39": 0,
+            "interbank_asset_bank_2": 5511053,
+            "risky_assets": 1281112
+          },
+          "liabilities": {
+            "deposit_business_1": 703875,
+            "deposit_business_6": 145180,
+            "deposit_household_10": 55694,
+            "deposit_household_11": 146810,
+            "deposit_household_15": 86434,
+            "deposit_household_20": 138587,
+            "deposit_household_23": 50883,
+            "deposit_household_25": 86618,
+            "deposit_household_26": 117139,
+            "deposit_household_35": 141926,
+            "deposit_household_39": 91825,
+            "interbank_debt_bank_5": 5511053
+          },
+          "equity": {
+            "equity": -11348
+          },
+          "assets_cents": 7264676,
+          "liabilities_cents": 7276024,
+          "equity_cents": -11348,
+          "balanced": true
+        },
+        "capital_ratio": -0.001562079299888942,
+        "liquidity_ratio": 0.2677160134642439,
+        "lending_available": false,
+        "settlement_liquidity_ratio": 0.9935704326020087
+      },
+      "loss_cents": 854074
+    },
+    {
+      "seed": 45,
+      "before": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "active",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 416067,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_1": 0,
+            "loan_household_4": 0,
+            "loan_household_9": 0,
+            "loan_household_14": 0,
+            "loan_household_19": 0,
+            "loan_household_23": 0,
+            "loan_household_26": 0,
+            "loan_household_37": 0,
+            "loan_household_40": 0,
+            "interbank_asset_bank_2": 5258119,
+            "risky_assets": 1474735
+          },
+          "liabilities": {
+            "deposit_business_1": 103520,
+            "deposit_business_6": 155280,
+            "deposit_household_1": 131911,
+            "deposit_household_4": 54216,
+            "deposit_household_9": 114576,
+            "deposit_household_14": 123419,
+            "deposit_household_19": 50386,
+            "deposit_household_23": 69487,
+            "deposit_household_26": 140764,
+            "deposit_household_37": 61196,
+            "deposit_household_40": 143989,
+            "interbank_debt_bank_5": 5258119
+          },
+          "equity": {
+            "equity": 742058
+          },
+          "assets_cents": 7148921,
+          "liabilities_cents": 6406863,
+          "equity_cents": 742058,
+          "balanced": true
+        },
+        "capital_ratio": 0.10380000002797625,
+        "liquidity_ratio": 0.36219296901659553,
+        "lending_available": true,
+        "settlement_liquidity_ratio": 1.6459733413188664
+      },
+      "after": {
+        "id": "bank_1",
+        "name": "Bank 1",
+        "kind": "bank",
+        "status": "stressed",
+        "balance_sheet": {
+          "assets": {
+            "reserves": 416067,
+            "loan_business_1": 0,
+            "loan_business_6": 0,
+            "loan_household_1": 0,
+            "loan_household_4": 0,
+            "loan_household_9": 0,
+            "loan_household_14": 0,
+            "loan_household_19": 0,
+            "loan_household_23": 0,
+            "loan_household_26": 0,
+            "loan_household_37": 0,
+            "loan_household_40": 0,
+            "interbank_asset_bank_2": 5258119,
+            "risky_assets": 884841
+          },
+          "liabilities": {
+            "deposit_business_1": 103520,
+            "deposit_business_6": 155280,
+            "deposit_household_1": 131911,
+            "deposit_household_4": 54216,
+            "deposit_household_9": 114576,
+            "deposit_household_14": 123419,
+            "deposit_household_19": 50386,
+            "deposit_household_23": 69487,
+            "deposit_household_26": 140764,
+            "deposit_household_37": 61196,
+            "deposit_household_40": 143989,
+            "interbank_debt_bank_5": 5258119
+          },
+          "equity": {
+            "equity": 152164
+          },
+          "assets_cents": 6559027,
+          "liabilities_cents": 6406863,
+          "equity_cents": 152164,
+          "balanced": true
+        },
+        "capital_ratio": 0.023199172682167646,
+        "liquidity_ratio": 0.36219296901659553,
+        "lending_available": false,
+        "settlement_liquidity_ratio": 1.1324611923979582
+      },
+      "loss_cents": 589894
+    }
+  ],
+  "short_buffer_controls": [
+    {
+      "seed": 43,
+      "financial_assumptions": {
+        "opening_payroll_days": 3,
+        "credit_payroll_days": 10,
+        "loan_review_days": 10,
+        "scope": "Assumed workday conventions, not observed cash reserves or credit limits. Payroll is Census-derived; rent, tax, interest and nonpayroll overhead remain unmodeled."
+      },
+      "metrics": {
+        "simulation_tick": 60,
+        "households": 40,
+        "businesses": 8,
+        "banks": 5,
+        "employed_households": 23,
+        "employment_rate": 0.575,
+        "household_cash_cents": 1867465,
+        "business_cash_cents": 5459131,
+        "total_deposits_cents": 7326596,
+        "total_bank_reserves_cents": 4537315,
+        "total_loans_cents": 0,
+        "business_defaults": 1,
+        "stressed_banks": 1,
+        "insolvent_banks": 1,
+        "trade_credit_outstanding_cents": 0,
+        "supplier_contract_defaults": 0,
+        "finished_goods_units": 16191,
+        "produced_units_this_tick": 784,
+        "sold_units_this_tick": 618,
+        "unmet_demand_units_this_tick": 58,
+        "public_intervention_cost_cents": 0,
+        "public_support_disbursed_cents": 0,
+        "fiscal_transfer_cost_cents": 0,
+        "public_loan_outstanding_cents": 0
+      },
+      "first_failures": [
+        {
+          "sequence": 14315,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_32",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 14320,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_37",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 14323,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_6",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {
+            "reason": "layoff",
+            "stress": [
+              "missed_payroll"
+            ]
+          }
+        },
+        {
+          "sequence": 14544,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_25",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 14550,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_31",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 14551,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_32",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 14555,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_36",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 14556,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_37",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 14560,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "job_lost",
+          "agent_id": "household_3",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 14561,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "job_lost",
+          "agent_id": "household_9",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 14562,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "job_lost",
+          "agent_id": "household_11",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 14563,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 59,
+          "event_type": "job_lost",
+          "agent_id": "household_12",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        }
+      ],
+      "audit": {
+        "balanced": true,
+        "journal_matches_balances": true,
+        "transaction_count": 8879,
+        "account_count": 283,
+        "bank_counterparties_match": true,
+        "interbank_counterparties_match": true,
+        "public_counterparties_match": true,
+        "supplier_counterparties_match": true,
+        "goods_inventory_matches": true
+      }
+    },
+    {
+      "seed": 45,
+      "financial_assumptions": {
+        "opening_payroll_days": 3,
+        "credit_payroll_days": 10,
+        "loan_review_days": 10,
+        "scope": "Assumed workday conventions, not observed cash reserves or credit limits. Payroll is Census-derived; rent, tax, interest and nonpayroll overhead remain unmodeled."
+      },
+      "metrics": {
+        "simulation_tick": 60,
+        "households": 40,
+        "businesses": 8,
+        "banks": 5,
+        "employed_households": 25,
+        "employment_rate": 0.625,
+        "household_cash_cents": 2228730,
+        "business_cash_cents": 5729034,
+        "total_deposits_cents": 7957764,
+        "total_bank_reserves_cents": 4765698,
+        "total_loans_cents": 0,
+        "business_defaults": 1,
+        "stressed_banks": 1,
+        "insolvent_banks": 1,
+        "trade_credit_outstanding_cents": 0,
+        "supplier_contract_defaults": 0,
+        "finished_goods_units": 24625,
+        "produced_units_this_tick": 1090,
+        "sold_units_this_tick": 621,
+        "unmet_demand_units_this_tick": 0,
+        "public_intervention_cost_cents": 0,
+        "public_support_disbursed_cents": 0,
+        "fiscal_transfer_cost_cents": 0,
+        "public_loan_outstanding_cents": 0
+      },
+      "first_failures": [
+        {
+          "sequence": 11098,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 57,
+          "event_type": "payment_rejected",
+          "agent_id": "business_5",
+          "counterparty_id": "household_21",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 11100,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 57,
+          "event_type": "payment_rejected",
+          "agent_id": "business_5",
+          "counterparty_id": "household_23",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 11289,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "payment_rejected",
+          "agent_id": "business_5",
+          "counterparty_id": "household_21",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 11291,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "payment_rejected",
+          "agent_id": "business_5",
+          "counterparty_id": "household_23",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 11309,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_3",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 11310,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_4",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 11311,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_7",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 11312,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_9",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 11313,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_12",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 11314,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_17",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 11315,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_18",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 11316,
+          "simulation_id": "short-buffer",
+          "simulation_tick": 58,
+          "event_type": "job_lost",
+          "agent_id": "household_21",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        }
+      ],
+      "audit": {
+        "balanced": true,
+        "journal_matches_balances": true,
+        "transaction_count": 9019,
+        "account_count": 283,
+        "bank_counterparties_match": true,
+        "interbank_counterparties_match": true,
+        "public_counterparties_match": true,
+        "supplier_counterparties_match": true,
+        "goods_inventory_matches": true
+      }
+    }
+  ]
+}

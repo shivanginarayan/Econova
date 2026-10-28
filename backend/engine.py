@@ -9,10 +9,11 @@ from backend.interventions import InterventionRules
 from backend.contracts import ContractRules
 from backend.production import ProductionRules
 from backend.labor import LaborRules
+from backend.financing import FinancingRules, MODEL as FINANCING_MODEL, LEGACY as FINANCING_LEGACY
 from backend.operating import OperatingRules, OPERATING_MODEL, LEGACY_MODEL
 
 
-class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, LaborRules, OperatingRules):
+class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, LaborRules, OperatingRules, FinancingRules):
     def __init__(self, state, copy=True):
         # copy=False is only for state that nothing else references, such as freshly parsed JSON.
         self.state = deepcopy(state) if copy else state
@@ -20,7 +21,7 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
         self.state["ledger"] = self.ledger.state
 
     @classmethod
-    def create(cls, simulation_id, seed=42, households=40, businesses=8, banks=5, scenario="standard", calibration_id=None, calibration=None, operating_model=OPERATING_MODEL, operating_assumptions=None, benchmark_id=None, benchmark=None):
+    def create(cls, simulation_id, seed=42, households=40, businesses=8, banks=5, scenario="standard", calibration_id=None, calibration=None, operating_model=OPERATING_MODEL, operating_assumptions=None, benchmark_id=None, benchmark=None, financial_model=None, financial_assumptions=None):
         if scenario not in ("standard", "credit_crunch", "supply_crunch"):
             raise LedgerError("Unknown starting scenario")
         if operating_model not in (OPERATING_MODEL, LEGACY_MODEL):
@@ -34,6 +35,9 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                 raise LedgerError('Public benchmark is missing, invalid or incomplete; no synthetic substitution') from None
             if benchmark['benchmark_id'] != benchmark_id:
                 raise LedgerError('Benchmark does not match the requested ID')
+        financial_model = financial_model or (FINANCING_MODEL if benchmark_id else FINANCING_LEGACY)
+        if financial_model not in (FINANCING_MODEL, FINANCING_LEGACY):
+            raise LedgerError('Unknown financial model')
         rng = random.Random(seed)
         if calibration_id is not None:
             from backend.calibration import load, validate
@@ -46,6 +50,7 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                      "entities": {}, "ledger": {"accounts": {}, "journal": []},
                      "production_model": "finite_v1",
                      "operating_model": operating_model,
+                     "financial_model": financial_model,
                      "settlement_model": "scheduled_liquidity_v2",
                      "goods_flow": {"produced_units": 0, "sold_units": 0, "unmet_demand_units": 0},
                      "events": [], "history": []})
@@ -82,6 +87,7 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
             workforce(world, benchmark)
             world.state['config']['benchmark_id'] = benchmark_id
         world.apply_baseline_unemployment()
+        world.initialize_financing(financial_assumptions)
         world.initialize_operations(operating_assumptions)
         world.initialize_financial_network(scenario)
         if benchmark_id:
@@ -175,6 +181,7 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                  (f"{payer_bank}:deposit_{payer_id}", amount_cents),
                  (f"{receiver_bank}:deposit_{receiver_id}", -amount_cents)]
         if payer_bank != receiver_bank:
+            lines += self.settlement_liquidity_lines(payer_bank, amount_cents)
             lines += [(f"{payer_bank}:reserves", -amount_cents),
                       (f"{receiver_bank}:reserves", amount_cents)]
         return lines
@@ -204,7 +211,7 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
         self.emit(kind, borrower_id, bank, amount_cents, transaction_id)
         if borrower["kind"] == "business":
             if not repay and previous_debt == 0:
-                borrower["loan_due_tick"] = self.state["tick"] + 5
+                borrower["loan_due_tick"] = self.state["tick"] + self.loan_review_days()
             elif repay and self.ledger.balance(borrower["debt_account"]) == 0:
                 borrower["loan_due_tick"] = None
         return entry
@@ -336,7 +343,9 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                 "settlement_model": self.state.get("settlement_model", "full_deposit_protection_v1"),
                 "latest_event_sequence": len(self.state["events"]), "calibration": calibration,
                 "public_benchmark": self.state.get("public_benchmark"),
-                "benchmark_mapping": self.state.get("benchmark_mapping")}
+                "benchmark_mapping": self.state.get("benchmark_mapping"),
+                "financial_model": self.state.get("financial_model", FINANCING_LEGACY),
+                "financial_assumptions": self.state.get("financial_assumptions")}
 
     def audit(self):
         result = self.ledger.audit()

@@ -28,8 +28,10 @@ def business_facts(source, business_id):
     contracts = [contract for contract in source.state.get("contracts", {}).values() if contract["outstanding_cents"]]
     return {"business_id": business_id, "bank_id": bank, "status": business["status"],
             "deposit_cents": cash, "available_deposit_cents": available, "debt_cents": debt, "payroll_cents": payroll,
-            "payroll_shortfall_cents": max(0, payroll - available), "credit_headroom_cents": max(0, 500_000 - debt),
+            "payroll_shortfall_cents": max(0, payroll - available), "credit_headroom_cents": max(0, source.borrower_limit(business) - debt),
             "loan_due_tick": business.get("loan_due_tick"),
+            "credit_limit_cents": source.borrower_limit(business),
+            "loan_review_days": source.loan_review_days(),
             "recorded_sales_last_5_ticks_cents": sales, "recorded_wages_last_5_ticks_cents": wages,
             "trade_payables_cents": sum(c["outstanding_cents"] for c in contracts if c["buyer_id"] == business_id),
             "trade_receivables_cents": sum(c["outstanding_cents"] for c in contracts if c["supplier_id"] == business_id),
@@ -65,7 +67,7 @@ def assess_credit(source, business_id, amount_cents, controls=None):
     except LedgerError as error:
         reasons.append(str(error))
     return {"eligible": not reasons, "amount_cents": amount_cents, "bank_id": facts["bank_id"],
-            "due_tick": facts["loan_due_tick"] if facts["debt_cents"] else source.state["tick"] + 5,
+            "due_tick": facts["loan_due_tick"] if facts["debt_cents"] else source.state["tick"] + source.loan_review_days(),
             "projected_bank_health": projected, "reasons": reasons,
             "terms": "Principal-only; an existing loan maturity is preserved. No collateral or interest is modeled.",
             **({"controls": controls} if controls else {})}

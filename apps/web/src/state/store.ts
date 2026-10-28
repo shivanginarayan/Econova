@@ -79,7 +79,7 @@ export const useStore=create<State>((set,get)=>({
  compareFutures:(show=true)=>guard(async()=>{if(get().compare&&show){set({compare:false});return;}await get().pause();const fork=await postOnce<Fork>(`/api/worlds/${get().world!.simulation_id}/forks`,{bank_id:'bank_1',budget_cents:1000000,ticks:12},'request_id');set({fork,compare:show});await get().refresh();}),
  startJob:(kind,actor,options={})=>guard(async()=>{await get().pause();const base=`/api/worlds/${get().world!.simulation_id}`;
   const paths={central_bank:'/agent-jobs',credit:`/businesses/${actor}/credit-jobs`,procurement:`/businesses/${actor}/procurement-jobs`};
-  const job=await postOnce<Job>(base+paths[kind],{mode:get().agentMode,agent_review:true,...options,...(kind==='central_bank'?{ticks:12,max_experiments:2,budget_cap_cents:1000000}:{auto_settle:false})},'request_id');set({job,report:null});await get().refresh();}),
+  const job=await postOnce<Job>(base+paths[kind],{mode:get().agentMode,agent_review:true,...options,...(kind==='central_bank'?{ticks:12,max_experiments:2,budget_cap_cents:1000000}:{auto_settle:false,...(kind==='credit'&&get().world?.financial_model==='working_capital_v2'?{max_amount_cents:Math.max(1,get().world!.entities.find(e=>e.id===actor)?.credit_limit_cents??500000)}:{})})},'request_id');set({job,report:null});await get().refresh();}),
  cancelJob:()=>guard(async()=>{if(get().job)set({job:await api<Job>(`/api/agent-jobs/${get().job!.job_id}/cancel`,{})});}),
  settleReport:()=>guard(async()=>{const report=get().report,job=get().job;if(!report||!job)return;await get().pause();
   const paths={central_bank:`agent-runs/${report.run_id}/apply`,credit:`credit-runs/${report.run_id}/settle`,procurement:`procurement-runs/${report.run_id}/settle`};

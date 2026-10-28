@@ -30,6 +30,7 @@ class ContractRules:
         lines = [(f"{payer_bank}:deposit_{buyer['id']}", amount),
                  (f"{receiver_bank}:deposit_{supplier['id']}", -amount)]
         if payer_bank != receiver_bank:
+            lines += self.settlement_liquidity_lines(payer_bank, amount)
             lines += [(f"{payer_bank}:reserves", -amount), (f"{receiver_bank}:reserves", amount)]
         return lines
 

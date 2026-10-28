@@ -265,7 +265,7 @@ def test_workflow_validation_missing_credentials_and_bounded_failure(client, mon
     monkeypatch.delenv("NEBIUS_API_KEY", raising=False)
     monkeypatch.delenv("NEBIUS_MODEL", raising=False)
     assert client.post(endpoint, json=request(mode="live")).status_code == 503
-    for patch in [{"max_amount_cents": True}, {"max_amount_cents": 500001}, {"max_amount_cents": 0}, {"auto_settle": 1}]:
+    for patch in [{"max_amount_cents": True}, {"max_amount_cents": 10**12+1}, {"max_amount_cents": 0}, {"auto_settle": 1}]:
         assert client.post(endpoint, json=request(**patch)).status_code == 422
     assert client.post(base + "/businesses/household_1/credit-runs", json=request()).status_code == 409
     assert client.get("/api/credit-runs/missing").status_code == 404

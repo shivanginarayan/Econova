@@ -1,5 +1,7 @@
 # Public-data grounding for Econova
 
+**Current revision:** new sourced worlds now use payroll-scaled `working_capital_v2` financing. Its default controls are substantially improved; sensitivity cases still fail and promotion remains on hold. The first-mapping results below are historical. See [Financial reconciliation](FINANCIAL_RECONCILIATION.md) for the new450checkpoint comparison, actual-menu checks, rules and remaining limitations.
+
 Econova can use real aggregate observations to inform a synthetic economy. A real observation is not the same thing as a real bank, a real business, or a validated economic rule. This revision adds an explicit **experimental** opening mode and a separate reference layer. It preserves the core bank-crisis investigation project and existing saved experiments.
 
 ## What is implemented

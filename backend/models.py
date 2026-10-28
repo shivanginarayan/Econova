@@ -135,12 +135,15 @@ class Entity(BaseModel):
     last_consumption_budget_cents: int | None = None
     last_received_wages_cents: int | None = None
     units_per_worker: int | None = None
+    opening_payroll_cents: int | None = None
+    credit_limit_cents: int | None = None
     loan_due_tick: int | None = None
     missed_debt_ticks: int = 0
     missed_payroll_ticks: int = 0
     interbank_default: bool = False
     capital_ratio: float | None = None
     liquidity_ratio: float | None = None
+    settlement_liquidity_ratio: float | None = None
     lending_available: bool | None = None
     materials_units: int | None = None
     goods_units: int | None = None
@@ -201,6 +204,8 @@ class World(BaseModel):
     calibration: dict[str, Any] | None = None
     public_benchmark: dict[str, Any] | None = None
     benchmark_mapping: dict[str, Any] | None = None
+    financial_model: str = "fixed_limits_v1"
+    financial_assumptions: dict[str, Any] | None = None
 
 
 class Event(BaseModel):
@@ -374,15 +379,15 @@ class CreditRunRequest(Request):
     request_id: str = Field(min_length=1, max_length=128)
     mode: Literal["live", "demo"] = "live"
     agent_review: bool = False
-    max_amount_cents: int = Field(default=500_000, ge=1, le=500_000)
+    max_amount_cents: int = Field(default=500_000, ge=1, le=10**12)
     auto_settle: bool = False
     require_crs: bool = False
     crs_profile_id: str | None = Field(default=None, min_length=1, max_length=128)
-    human_approval_threshold_cents: int | None = Field(default=None, ge=1, le=500_000)
+    human_approval_threshold_cents: int | None = Field(default=None, ge=1, le=10**12)
 
 
 class CreditProposal(Request):
-    amount_cents: int = Field(gt=0, le=500_000)
+    amount_cents: int = Field(gt=0, le=10**12)
     rationale: str = Field(min_length=1, max_length=2000)
 
 
@@ -391,12 +396,12 @@ class ContinueBusiness(Request):
 
 
 class AssessCreditArguments(Request):
-    amount_cents: int = Field(gt=0, le=500_000)
+    amount_cents: int = Field(gt=0, le=10**12)
 
 
 class BankDecision(Request):
     approved: bool
-    amount_cents: int = Field(ge=0, le=500_000)
+    amount_cents: int = Field(ge=0, le=10**12)
     rationale: str = Field(min_length=1, max_length=2000)
 
     @model_validator(mode="after")

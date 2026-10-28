@@ -12,11 +12,14 @@ class CrisisRules:
         deposits = sum(value for name, value in sheet["liabilities"].items() if name.startswith("deposit_"))
         capital_ratio = sheet["equity_cents"] / sheet["assets_cents"] if sheet["assets_cents"] else 0
         liquidity_ratio = sheet["assets"].get("reserves", 0) / deposits if deposits else 1
+        settlement_liquidity_ratio = ((sheet['assets'].get('reserves', 0) + sheet['assets'].get('risky_assets', 0)) / deposits
+                                      if deposits else 1) if self.scaled_financing() else liquidity_ratio
         status = ("insolvent" if sheet["equity_cents"] <= 0 else
-                  "stressed" if capital_ratio < 0.08 or liquidity_ratio < 0.10
+                  "stressed" if capital_ratio < 0.08 or settlement_liquidity_ratio < 0.10
                   or bank.get("interbank_default", False) else "active")
         return {"status": status, "capital_ratio": capital_ratio, "liquidity_ratio": liquidity_ratio,
-                "lending_available": status == "active"}
+                "lending_available": status == "active",
+                "settlement_liquidity_ratio": settlement_liquidity_ratio}
 
     def refresh_banks(self):
         for bank in self.state["entities"].values():
@@ -39,7 +42,7 @@ class CrisisRules:
         loans = sum(value for name, value in sheet["assets"].items() if name.startswith("loan_"))
         if loans + additional_cents > sheet["equity_cents"] * 5:
             raise LedgerError("Bank capital lending limit exceeded")
-        if self.ledger.balance(borrower["debt_account"]) + additional_cents > 500_000:
+        if self.ledger.balance(borrower["debt_account"]) + additional_cents > self.borrower_limit(borrower):
             raise LedgerError("Borrower credit limit exceeded")
 
     def initialize_financial_network(self, scenario):
@@ -49,7 +52,9 @@ class CrisisRules:
             businesses = [e for e in self.state["entities"].values() if e["kind"] == "business"]
             for index, business in enumerate(businesses):
                 payroll = self.payroll(business)
-                principal = min(300_000, max(10_000, payroll * 2))
+                principal = min(self.borrower_limit(business), payroll * 2) if self.scaled_financing() else min(300_000, max(10_000, payroll * 2))
+                if principal <= 0:
+                    continue
                 self.loan(f"genesis:credit:{business['id']}", business["id"], principal)
                 cash = self.ledger.balance(business["deposit_account"])
                 setup_cost = max(0, cash - max(10_000, payroll * 3 // 2))
@@ -196,10 +201,10 @@ class CrisisRules:
             if remaining:
                 try:
                     self.lending_check(business["id"])
-                    business["loan_due_tick"] = tick + 5
+                    business["loan_due_tick"] = tick + self.loan_review_days()
                     business["missed_debt_ticks"] = 0
                     self.emit("loan_refinanced", business["id"], business["bank_id"], remaining,
-                              details={"due_tick": tick + 5})
+                              details={"due_tick": tick + self.loan_review_days()})
                 except LedgerError as error:
                     business["missed_debt_ticks"] = business.get("missed_debt_ticks", 0) + 1
                     self.emit("credit_rejected", business["id"], business["bank_id"], remaining,

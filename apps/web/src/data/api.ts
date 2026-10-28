@@ -3,13 +3,13 @@ export type Metrics = {simulation_tick:number; employment_rate:number; employed_
  stressed_banks:number; public_support_disbursed_cents:number; finished_goods_units:number;
  produced_units_this_tick:number; sold_units_this_tick:number; unmet_demand_units_this_tick:number};
 export type Entity = {id:string; name:string; kind:string; status:string; bank_id?:string|null;
- employer_id?:string|null; employees?:string[]|null; materials_units?:number|null; goods_units?:number|null;
+ opening_payroll_cents?:number|null;credit_limit_cents?:number|null; employer_id?:string|null; employees?:string[]|null; materials_units?:number|null; goods_units?:number|null;
  last_produced_units?:number|null; loan_due_tick?:number|null; capital_ratio?:number|null; liquidity_ratio?:number|null;
  lending_available?:boolean|null; balance_sheet:{assets:Record<string,number>; liabilities:Record<string,number>;
  assets_cents:number; liabilities_cents:number; equity_cents:number; balanced:boolean}};
 export type SourceObservation={item?:string;value?:number;unit?:string;kind?:string;effective_date?:string;variant?:string;source_url?:string;observed_at?:string};
 export type CalibrationSource={actor_id:string;run_id:string;dataset_id:string;source_url:string;category?:string;scope?:string;conversion?:string;accepted?:number;observations?:SourceObservation[]};
-export type World = {public_benchmark?:import('../ui/PublicBenchmarks').Benchmark|null;benchmark_mapping?:Record<string,unknown>|null;simulation_id:string; simulation_tick:number; status:'paused'|'running';calibration?:{calibration_id:string;provider:string;sha256:string;collected_at:string;sources:CalibrationSource[];price_sample_count:number;wage_sample_count:number}|null;
+export type World = {financial_model?:string;financial_assumptions?:{opening_payroll_days:number;credit_payroll_days:number;loan_review_days:number}|null;public_benchmark?:import('../ui/PublicBenchmarks').Benchmark|null;benchmark_mapping?:Record<string,unknown>|null;simulation_id:string; simulation_tick:number; status:'paused'|'running';calibration?:{calibration_id:string;provider:string;sha256:string;collected_at:string;sources:CalibrationSource[];price_sample_count:number;wage_sample_count:number}|null;
  config:{seed:number; scenario:string}; entities:Entity[]; metrics:Metrics; latest_event_sequence:number; production_model:string;operating_model?:string;operating_assumptions?:Record<string,unknown>|null;settlement_model?:string};
 export type EconomyEvent = {sequence:number; simulation_id:string; simulation_tick:number; event_type:string;
  agent_id:string|null; counterparty_id:string|null; amount_cents:number|null; transaction_id:string|null; details:Record<string,unknown>};

@@ -9,5 +9,8 @@ def decision_finances(source, business_id):
     return {'captured_tick': tick, 'net_worth_cents': sheet['equity_cents'],
             'deposit_cents': source.ledger.balance(business['deposit_account']),
             'debt_cents': source.ledger.balance(business['debt_account']),
+            'credit_limit_cents': source.borrower_limit(business),
+            'daily_payroll_cents': source.payroll(business),
+            'financial_model': source.state.get('financial_model','fixed_limits_v1'),
             'sales_cents': sum(e['amount_cents'] or 0 for e in purchases),
             'sales_start_tick': start, 'sales_end_tick': tick}

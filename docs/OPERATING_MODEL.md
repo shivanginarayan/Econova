@@ -1,4 +1,6 @@
-﻿# Econova operating model: cashflow_v2
+# Econova operating model: cashflow_v2
+
+New sourced worlds additionally use [payroll-scaled financing](FINANCIAL_RECONCILIATION.md). This changes cash buffers, credit limits, review dates and payment liquidity, while preserving the cashflow_v2 spending/production rules documented here. Older worlds retain their original financing.
 
 Implemented October 28, 2026. This corrects incompatible toy operating assumptions; it is not an empirically calibrated forecast.
 
