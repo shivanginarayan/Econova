@@ -1,8 +1,8 @@
-﻿# First-user validation session
+# First-user validation session
 
 Status: prepared, not conducted. Do not treat this document as user feedback or evidence of customer demand.
 
-Purpose: see whether a finance learner or instructor can understand a bank-shock investigation without the builder narrating the interface. Keep Parallax’s existing task: investigate bank shocks, credit, and rescue comparisons.
+Purpose: see whether a finance learner or instructor can understand a bank-shock investigation without the builder narrating the interface. Keep Econova’s existing task: investigate bank shocks, credit, and rescue comparisons.
 
 Ask permission to take notes. Use an unfamiliar participant, a fresh browser session and the same identified build. Record the participant’s relevant background without unnecessary personal information. Record the input sample, scenario, settlement version, seed, horizon and chosen loss so another person can reproduce the task.
 

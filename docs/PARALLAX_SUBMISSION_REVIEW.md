@@ -1,3 +1,5 @@
+> Historical Parallax / Cal Hacks material. The current product is Econova. For current readiness and limitations, see [the priority audit](./PRIORITY_READINESS_AUDIT.md). External registrations may still use their original names.
+
 # Parallax — individual track submission review
 
 Prepared for team review. Devpost completion was confirmed by the team. All entries below await approval before they are sent or confirmed.

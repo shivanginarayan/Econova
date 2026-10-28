@@ -1,8 +1,10 @@
-# Parallax: NVIDIA / Nebius readiness audit
+> **October28update:** The structural operating mismatch below has now been addressed for new economies with versioned cashflow_v2. All20matchedno-shock cases have zero business defaults atday60 and92.5–95%employment, without public support; severe shocks still cause failures. See [the current operating model and480-checkpoint evidence](./OPERATING_MODEL.md). Earlier collapse numbers below are retained as the pre-revision diagnosis, not current default behavior. This does not close human usability validation, empirical calibration, hosting, licensing or final submission requirements.
+
+# Econova: NVIDIA / Nebius readiness audit
 
 Checked October 26, 2026. Current branch: `parallax-rename-v2`. This is a working checklist, not a completed entry or confirmation of eligibility.
 
-Parallax remains a simulated economy where financial agents investigate bank shocks, negotiate credit, and compare rescue policies.
+Econova remains a simulated economy where financial agents investigate bank shocks, negotiate credit, and compare rescue policies.
 
 ## October 27 — model credibility work
 
@@ -87,7 +89,7 @@ Choose the intended license with the contributors, check third-party asset right
 
 ### Provide remote access to the actual product
 
-The verified application currently runs on localhost. No working hosted Parallax URL or independently tested downloadable build has been established in this audit.
+The verified application currently runs on localhost. No working hosted Econova URL or independently tested downloadable build has been established in this audit.
 
 Recommended path: a hosted web UI and API with persistent storage and server-side Token Factory credentials. Add isolated visitor sessions/worlds and protect expensive model-job routes before exposing the current local API. The current API has no production authentication or per-user isolation; CORS is not access control. Infrastructure safeguards should not deprive judges of the promised working workflow.
 

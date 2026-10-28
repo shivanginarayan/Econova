@@ -26,7 +26,7 @@ def test_production_transfers_material_cost_without_creating_profit_or_money():
     cash, equity = world.ledger.balance("business_1:deposit"), world.ledger.sheet("business_1")["equity_cents"]
     world.state["tick"] = 1
     world.produce_goods(business)
-    assert business["materials_units"] == 15 and business["goods_units"] == 50
+    assert business["materials_units"] == 15 and business["goods_units"] == 5 * world.output_per_worker(business)
     assert world.material_cost("business_1") == 7515
     assert world.goods_cost("business_1") == 2505
     assert world.ledger.balance("business_1:deposit") == cash
@@ -42,11 +42,13 @@ def test_retail_sale_cost_basis_rounding_and_replay():
     price = world.customer("business_1")["price_cents"]
     equity = world.ledger.sheet("business_1")["equity_cents"]
     before = world.metrics()
+    initial_units = world.customer("business_1")["goods_units"]
+    expected_cost = world.goods_cost("business_1") * 3 // initial_units
     receipt = world.purchase_goods("sale", "household_1", "business_1", 3)
-    assert receipt["metadata"]["cost_of_goods_sold_cents"] == 150
-    assert world.goods_cost("business_1") == 2355
-    assert world.customer("business_1")["goods_units"] == 47
-    assert world.ledger.sheet("business_1")["equity_cents"] == equity + price * 3 - 150
+    assert receipt["metadata"]["cost_of_goods_sold_cents"] == expected_cost
+    assert world.goods_cost("business_1") == 2505 - expected_cost
+    assert world.customer("business_1")["goods_units"] == initial_units - 3
+    assert world.ledger.sheet("business_1")["equity_cents"] == equity + price * 3 - expected_cost
     assert world.metrics()["total_deposits_cents"] == before["total_deposits_cents"]
     assert world.metrics()["total_bank_reserves_cents"] == before["total_bank_reserves_cents"]
     saved = deepcopy(world.state)
@@ -55,8 +57,8 @@ def test_retail_sale_cost_basis_rounding_and_replay():
     with pytest.raises(LedgerError, match="different contents"):
         world.purchase_goods("sale", "household_1", "business_1", 4)
     # Give another household enough cash to buy all remaining units.
-    world.pay("fund-buyer", "business_2", "household_2", price * 47)
-    world.purchase_goods("sell-out", "household_2", "business_1", 47)
+    world.pay("fund-buyer", "business_2", "household_2", price * (initial_units - 3))
+    world.purchase_goods("sell-out", "household_2", "business_1", initial_units - 3)
     assert world.goods_cost("business_1") == 0
     assert world.customer("business_1")["goods_units"] == 0
     world.audit()
@@ -66,7 +68,7 @@ def test_failed_retail_sale_changes_neither_stock_nor_money():
     world = stocked_world()
     before = deepcopy(world.state)
     with pytest.raises(LedgerError, match="finished goods"):
-        world.purchase_goods("too-many", "household_1", "business_1", 51)
+        world.purchase_goods("too-many", "household_1", "business_1", world.customer("business_1")["goods_units"] + 1)
     assert world.state == before
     world.pay("drain", "household_1", "business_2", world.ledger.balance("household_1:deposit"))
     before = deepcopy(world.state)
@@ -81,7 +83,7 @@ def test_failed_retail_sale_changes_neither_stock_nor_money():
 
 
 def test_tick_caps_sales_and_reports_stock_shortfall():
-    world = Economy.create("goods", households=1, businesses=1, banks=1)
+    world = Economy.create("goods", households=1, businesses=1, banks=1, operating_model="legacy_v1")
     seller = world.customer("business_1")
     world.customer("household_1")["consumption_budget_cents"] = seller["price_cents"] * 20
     world.step()
@@ -108,7 +110,7 @@ def test_no_materials_means_no_production_and_restocking_restores_sales(tmp_path
     assert report["status"] == "contracted"
     store.step_paused("supply", 1)
     recovered = store.get("supply")
-    assert recovered.customer("business_1")["last_produced_units"] == 50
+    assert recovered.customer("business_1")["last_produced_units"] == len(recovered.customer("business_1")["employees"]) * recovered.output_per_worker(recovered.customer("business_1"))
     assert any(e["event_type"] == "purchase" and e["counterparty_id"] == "business_1" and e["simulation_tick"] == 2
                for e in recovered.state["events"])
     assert recovered.audit()["balanced"]
@@ -116,13 +118,13 @@ def test_no_materials_means_no_production_and_restocking_restores_sales(tmp_path
 
 def test_inventory_carries_forward_and_closed_or_unstaffed_businesses_do_not_produce():
     world = Economy.create("goods", households=1, businesses=2, banks=1)
-    world.customer("household_1")["consumption_budget_cents"] = 0
+    world.state["operating_assumptions"].update(income_spending_bps=0, wealth_spending_bps=0)
     world.step(2)
-    assert world.customer("business_1")["goods_units"] == 20
+    assert world.customer("business_1")["goods_units"] == 2 * world.output_per_worker(world.customer("business_1"))
     assert world.customer("business_2")["goods_units"] == 0
     world.default_business(world.customer("business_1"), "test closure")
     world.step()
-    assert world.customer("business_1")["goods_units"] == 20
+    assert world.customer("business_1")["goods_units"] == 2 * world.output_per_worker(world.customer("business_1"))
     assert world.customer("business_1")["last_produced_units"] == 0
     assert world.entity_view("business_1")["production_capacity_units"] == 0
     world.audit()
@@ -174,5 +176,5 @@ def test_supply_scenario_and_inventory_fields_in_api(tmp_path):
         client.post(base + "/step", json={"ticks": 1})
         business = client.get(base + "/entities/business_1").json()
         assert business["last_produced_units"] == 0 and business["goods_units"] == 0
-        assert business["production_capacity_units"] == 50
+        assert business["production_capacity_units"] == next(e for e in world["entities"] if e["id"]=="business_1")["production_capacity_units"]
         assert "goods" in business["balance_sheet"]["assets"]

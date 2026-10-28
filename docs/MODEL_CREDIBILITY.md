@@ -1,10 +1,12 @@
+> **October28update:** The structural operating mismatch below has now been addressed for new economies with versioned cashflow_v2. All20matchedno-shock cases have zero business defaults atday60 and92.5–95%employment, without public support; severe shocks still cause failures. See [the current operating model and480-checkpoint evidence](./OPERATING_MODEL.md). Earlier collapse numbers below are retained as the pre-revision diagnosis, not current default behavior. This does not close human usability validation, empirical calibration, hosting, licensing or final submission requirements.
+
 # Model credibility and remaining validation
 
 Checked October 27, 2026. Local working changes; no published release commit yet.
 
 ## Product and intended use
 
-Parallax remains a simulated economy where financial agents investigate bank shocks, negotiate credit and compare rescue policies. The first intended task is helping finance learners/instructors follow a bank loss into recorded lending/payroll problems and compare responses. This is a proposed audience, not demonstrated customer demand. No private bank data is needed for the synthetic task.
+Econova remains a simulated economy where financial agents investigate bank shocks, negotiate credit and compare rescue policies. The first intended task is helping finance learners/instructors follow a bank loss into recorded lending/payroll problems and compare responses. This is a proposed audience, not demonstrated customer demand. No private bank data is needed for the synthetic task.
 
 ## Defect addressed
 

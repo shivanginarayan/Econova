@@ -1,0 +1,131 @@
+{
+  "checked_at": "2026-10-28T06:51:14.113001+00:00",
+  "provider": "nebius",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "calibration_id": "sf_public_20261028_063029_97042a",
+  "scope": "Seven predefined cases, one attempt each; no retries or automatic settlement. Queue-inclusive latency from one local two-worker service, not a performance SLA or statistical reliability estimate.",
+  "counts": {
+    "completed": 7
+  },
+  "review_counts": {
+    "passed": 4,
+    "blocked": 3
+  },
+  "latency_p50_seconds": 37.81,
+  "latency_p95_seconds": 68.09,
+  "results": [
+    {
+      "case": "policy_absorbed_loss",
+      "job_id": "job_066aa0d5577349b1b8fa814adf3e337f",
+      "run_id": "agent_25e8fdb6f9544d1ba4f7655f5c0864a4",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 14.56,
+      "tool_calls": 3,
+      "tool_statuses": {
+        "accepted": 3
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "policy_control",
+      "job_id": "job_5a9bc235ac1341bca8ec7bdbc91c22e4",
+      "run_id": "agent_c4f9eb7b2ade4bdfa9c7d17cdb7f6539",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 20.06,
+      "tool_calls": 4,
+      "tool_statuses": {
+        "accepted": 4
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "policy_fragile_loss",
+      "job_id": "job_bf092a4208b347199bb924cde898ec4e",
+      "run_id": "agent_d5bf852c6c1944369d22da24e33cbc02",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 29.67,
+      "tool_calls": 4,
+      "tool_statuses": {
+        "accepted": 4
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "credit_no_gap",
+      "job_id": "job_af7368e3a47344df9281db35b392099a",
+      "run_id": "credit_8b577034b2d14efe867ccdba0d04728b",
+      "workflow_status": "completed",
+      "report_status": "not_requested",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 37.81,
+      "tool_calls": 2,
+      "tool_statuses": {
+        "accepted": 2
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "credit_payroll_gap",
+      "job_id": "job_ddfbc6637b7347529afd1190589f9a6e",
+      "run_id": "credit_30e9a858a6684b288188d3dd7c92b8a9",
+      "workflow_status": "completed",
+      "report_status": "approved",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 46.39,
+      "tool_calls": 7,
+      "tool_statuses": {
+        "accepted": 7
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "supplier_budget_too_small",
+      "job_id": "job_9ccfee0ce529410aaa06b9c3c240504f",
+      "run_id": "supply_1d30057b8ebd4cc499e84e6c4587e3b6",
+      "workflow_status": "completed",
+      "report_status": "declined",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 59.84,
+      "tool_calls": 7,
+      "tool_statuses": {
+        "accepted": 6,
+        "rejected": 1
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "supplier_normal_budget",
+      "job_id": "job_8c46fa0f3460425bb9913b06442d2403",
+      "run_id": "supply_6bb7c9b42f80474084ef6939a9e7fe95",
+      "workflow_status": "completed",
+      "report_status": "declined",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 68.09,
+      "tool_calls": 6,
+      "tool_statuses": {
+        "accepted": 6
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    }
+  ]
+}

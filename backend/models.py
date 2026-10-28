@@ -131,6 +131,9 @@ class Entity(BaseModel):
     price_cents: int | None = None
     wage_cents: int | None = None
     consumption_budget_cents: int | None = None
+    last_consumption_budget_cents: int | None = None
+    last_received_wages_cents: int | None = None
+    units_per_worker: int | None = None
     loan_due_tick: int | None = None
     missed_debt_ticks: int = 0
     missed_payroll_ticks: int = 0
@@ -191,6 +194,8 @@ class World(BaseModel):
     latest_event_sequence: int
     lineage: ForkLineage | ScenarioLineage | None = None
     production_model: Literal["finite_v1", "legacy_unlimited"] = "legacy_unlimited"
+    operating_model: Literal["cashflow_v2", "legacy_v1"] = "legacy_v1"
+    operating_assumptions: dict[str, Any] | None = None
     settlement_model: Literal["scheduled_liquidity_v2", "full_deposit_protection_v1"] = "full_deposit_protection_v1"
     calibration: dict[str, Any] | None = None
 

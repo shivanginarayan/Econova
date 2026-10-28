@@ -1,13 +1,13 @@
-# Parallax
+# Econova
 
 A simulated economy where financial agents investigate bank shocks, negotiate credit, and compare rescue policies.
 
 ![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
 ![tag:hackathon](https://img.shields.io/badge/hackathon-5F43F1)
 
-Parallax turns a financial stress test into an interactive investigation workspace. Start with households, businesses, and banks, introduce a hypothetical bank investment loss, and follow the effects on credit, payroll, production, and defaults. Compare three possible futures before deciding whether to apply support.
+Econova turns a financial stress test into an interactive investigation workspace. Start with households, businesses, and banks, introduce a hypothetical bank investment loss, and follow the effects on credit, payroll, production, and defaults. Compare three possible futures before deciding whether to apply support.
 
-The first intended audience is finance learners and instructors exploring how bank shocks affect business credit and jobs. This is an audience hypothesis awaiting user validation. Parallax uses synthetic bank and business finances, so this task requires no private bank data. It is an investigation prototype, not a forecast or a service for making real lending decisions.
+The first intended audience is finance learners and instructors exploring how bank shocks affect business credit and jobs. This is an audience hypothesis awaiting user validation. Econova uses synthetic bank and business finances, so this task requires no private bank data. It is an investigation prototype, not a forecast or a service for making real lending decisions.
 
 ## What you can do
 
@@ -94,7 +94,7 @@ For a track-by-track speaking script, see [the plain-language judging guide](./d
 
 **Fetch.ai:** one registered uAgents/Agentverse gateway implements ACP and supports a stress-test request and evidence follow-up inside ASI:One. Both the messaging path and ASI:One workflow were verified. The ten local typed economic services are saved-state adapters, not ten separately verified public LLM agents.
 
-- Agent: **Parallax financial gateway** — the registered profile and address below identify the running service.
+- Agent: **Parallax financial gateway** (legacy registered name) — the registered profile and address below identify the running service.
 - Agent address: `agent1qwv9gf04ag4echzl3fpgnc889lpsk8vgatysq07yz7zpwm9480zxslyxkgm`
 - [Open agent in ASI:One](https://asi1.ai/ai/agent1qwv9gf04ag4echzl3fpgnc889lpsk8vgatysq07yz7zpwm9480zxslyxkgm)
 - Example: `stress-test bank 1 with a 40% loss and compare rescue plans`, followed by `why did you pick that?`
@@ -121,11 +121,12 @@ The frontend uses React, TypeScript, Vite, and Zustand, with a financial investi
 
 ## Validation
 
-After the integrated Parallax merge, the active backend suite passed **217 tests**, with one optional module skipped. Frontend tests, the TypeScript/production build, and a Chrome smoke check passed. The browser check covered Parallax branding, sponsor controls, CRS profile availability, three calculated futures, and comparison-report download. Separate live evidence establishes the integrations described above; unit tests alone do not prove external availability.
+Current evidence: the latest full backend run passed **267 tests with one optional skip**; final spending-budget API metadata then passed **30 targeted operating/API/playback tests**. The current frontend passed **96 tests** and a production build. Eight API tests passed after the Econova API-title change. A clean-browser test completed the full investigation/comparison/agent-inspection/refresh flow with no source mutation or mobile overflow. This is automated functional evidence, not validation by an unfamiliar person.
 
+Seven additional live NVIDIA/Nebius cases completed with four passed reviews and three held reviews. Declined/held outcomes are preserved, not counted as approved actions. See [the priority readiness audit](./docs/PRIORITY_READINESS_AUDIT.md). The incompatible operating assumptions have been revised in cashflow_v2; matched no-shock controls and remaining limits are documented in [the operating-model guide](./docs/OPERATING_MODEL.md).
 ```powershell
 .\.venv\Scripts\python.exe -m pytest tests -q
-npm test
+npm test -- --exclude 'artifacts/**'
 npm run build
 ```
 
@@ -150,3 +151,5 @@ Some linked guides contain historical results. Use the current branch's behavior
 New economies use versioned scheduled interbank settlement; existing snapshots keep their earlier assumptions. A bank investment loss is distinct from a household withdrawal run. The revised settlement retains a 10% deposit liquidity buffer at solvent banks, rather than treating all deposits as simultaneously payable. This buffer and par-value conversion of recorded risky assets are model assumptions, not claimed regulations or realistic market liquidation.
 
 See [model evidence](docs/MODEL_CREDIBILITY.md) for the matched old/new comparison, frozen input identity, limitations and repeat commands. The evaluation retains all five seeds, four severities and three horizons, including equal outcomes and deteriorating no-shock controls. Accounting consistency and sensitivity are tested; empirical accuracy and customer usefulness remain unvalidated.
+
+New economies use the versioned income/wealth spending and wage/price-consistent capacity benchmark. All20testedno-shock cases retain92.5–95%employment and zero business defaults atday60, without public support. Severe-shock cases still include failures. [Full operating assumptions and evidence](./docs/OPERATING_MODEL.md). Existing experiments retain their original rules; create a new economy to use the revision.

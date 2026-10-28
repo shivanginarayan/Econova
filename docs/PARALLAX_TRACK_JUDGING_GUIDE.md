@@ -1,4 +1,6 @@
-﻿# Parallax: how we use each track
+> Historical Parallax / Cal Hacks material. The current product is Econova. For current readiness and limitations, see [the priority audit](./PRIORITY_READINESS_AUDIT.md). External registrations may still use their original names.
+
+# Parallax: how we use each track
 
 Parallax is a simulated economy where financial agents investigate bank shocks, negotiate credit, and compare rescue policies. The sections below are written as words we can say directly to judges. Sections 1–7 describe our main sponsor work. Sections 8–11 describe broader awards we can explain using the same product; they are not additional API integrations. Implementing a technology does not by itself mean its award submission is complete.
 

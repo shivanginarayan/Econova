@@ -1,10 +1,10 @@
-# Parallax — NVIDIA / Nebius entry draft
+# Econova — NVIDIA / Nebius entry draft
 
 Working draft for owner review. No entry has been submitted by this work. Audience, published commit, license, test URL and video URL remain to be confirmed.
 
 ## Project description
 
-Parallax is a simulated economy where financial AI agents investigate bank shocks, negotiate credit and compare rescue policies. A bank’s loss can affect its ability to lend. A business may then struggle to finance payroll, affecting its workers and production. Parallax lets a user inspect these connections and compare possible responses in one interactive workspace.
+Econova is a simulated economy where financial AI agents investigate bank shocks, negotiate credit and compare rescue policies. A bank’s loss can affect its ability to lend. A business may then struggle to finance payroll, affecting its workers and production. Econova lets a user inspect these connections and compare possible responses in one interactive workspace.
 
 The user chooses a hypothetical bank investment loss. The simulation calculates the financial consequences. Charts show employment, bank stress and business defaults as percentages, and individual business views explain recorded credit decisions. Alternate worlds compare different losses from the same saved state. Rescue comparisons test different responses after a shock.
 
@@ -30,7 +30,7 @@ A defined sensitivity set now compares two settlement-rule versions, five seeds,
 
 ## Development history
 
-Parallax was previously developed for Cal Hacks. Work on October 26 added a Nebius-focused supervised agent workflow and visible handoffs, percentage-led charts and focused views, business credit evidence, alternate shock worlds and a descriptive introduction. Earlier work already provided the financial simulation and other integrations. The exact source history and final published commit must be checked before copying this section into the entry; do not describe all work as newly created for this event.
+The project was previously developed for Cal Hacks under the name Parallax and is now called Econova. Work on October 26 added a Nebius-focused supervised agent workflow and visible handoffs, percentage-led charts and focused views, business credit evidence, alternate shock worlds and a descriptive introduction. Earlier work already provided the financial simulation and other integrations. The exact source history and final published commit must be checked before copying this section into the entry; do not describe all work as newly created for this event.
 
 ## Observed developer feedback
 

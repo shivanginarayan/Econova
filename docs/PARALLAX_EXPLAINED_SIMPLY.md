@@ -1,3 +1,5 @@
+> Historical Parallax / Cal Hacks material. The current product is Econova. For current readiness and limitations, see [the priority audit](./PRIORITY_READINESS_AUDIT.md). External registrations may still use their original names.
+
 # Parallax, explained from beginning to end
 
 This guide explains the integrated Parallax project in plain language. It follows the implementation and verified work on `parallax-rename-v2`. Examples with round numbers explain the mechanism; they are not promised results for a particular saved world.

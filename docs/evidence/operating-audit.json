@@ -1,0 +1,1081 @@
+{
+  "scope": "Diagnostic of fixed current assumptions; no model revision, AI calls or collection. Capacity is an upper bound, not guaranteed sales. Spending budgets are initial caps, not actual spending.",
+  "calibration_id": "sf_public_20261028_063029_97042a",
+  "calibration_sha256": "d910e0a43cdb2ae26bfdb893407587fcc9ed722b16017306c852414754072fd6",
+  "runs": [
+    {
+      "seed": 41,
+      "input_mode": "seeded_synthetic",
+      "initial_daily_payroll_cents": 292485,
+      "initial_household_spending_budgets_cents": 275295,
+      "spending_budget_to_payroll": 0.9412,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 34777,
+          "price_cents": 1140,
+          "maximum_daily_sales_cents": 57000,
+          "maximum_sales_to_payroll": 1.639,
+          "initial_cash_cents": 52165
+        },
+        {
+          "business_id": "business_2",
+          "employees": 5,
+          "daily_payroll_cents": 39842,
+          "price_cents": 970,
+          "maximum_daily_sales_cents": 48500,
+          "maximum_sales_to_payroll": 1.2173,
+          "initial_cash_cents": 59763
+        },
+        {
+          "business_id": "business_3",
+          "employees": 5,
+          "daily_payroll_cents": 34254,
+          "price_cents": 1391,
+          "maximum_daily_sales_cents": 69550,
+          "maximum_sales_to_payroll": 2.0304,
+          "initial_cash_cents": 51381
+        },
+        {
+          "business_id": "business_4",
+          "employees": 4,
+          "daily_payroll_cents": 30468,
+          "price_cents": 1090,
+          "maximum_daily_sales_cents": 43600,
+          "maximum_sales_to_payroll": 1.431,
+          "initial_cash_cents": 45702
+        },
+        {
+          "business_id": "business_5",
+          "employees": 5,
+          "daily_payroll_cents": 42576,
+          "price_cents": 1083,
+          "maximum_daily_sales_cents": 54150,
+          "maximum_sales_to_payroll": 1.2718,
+          "initial_cash_cents": 63864
+        },
+        {
+          "business_id": "business_6",
+          "employees": 5,
+          "daily_payroll_cents": 39502,
+          "price_cents": 1390,
+          "maximum_daily_sales_cents": 69500,
+          "maximum_sales_to_payroll": 1.7594,
+          "initial_cash_cents": 59253
+        },
+        {
+          "business_id": "business_7",
+          "employees": 5,
+          "daily_payroll_cents": 42141,
+          "price_cents": 1055,
+          "maximum_daily_sales_cents": 52750,
+          "maximum_sales_to_payroll": 1.2518,
+          "initial_cash_cents": 63211
+        },
+        {
+          "business_id": "business_8",
+          "employees": 4,
+          "daily_payroll_cents": 28925,
+          "price_cents": 818,
+          "maximum_daily_sales_cents": 32720,
+          "maximum_sales_to_payroll": 1.1312,
+          "initial_cash_cents": 43387
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 12,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 30,
+          "employment_percent": 87.5,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "input_mode": "seeded_synthetic",
+      "initial_daily_payroll_cents": 299858,
+      "initial_household_spending_budgets_cents": 268354,
+      "spending_budget_to_payroll": 0.8949,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 41276,
+          "price_cents": 914,
+          "maximum_daily_sales_cents": 45700,
+          "maximum_sales_to_payroll": 1.1072,
+          "initial_cash_cents": 61914
+        },
+        {
+          "business_id": "business_2",
+          "employees": 5,
+          "daily_payroll_cents": 39485,
+          "price_cents": 1081,
+          "maximum_daily_sales_cents": 54050,
+          "maximum_sales_to_payroll": 1.3689,
+          "initial_cash_cents": 59227
+        },
+        {
+          "business_id": "business_3",
+          "employees": 4,
+          "daily_payroll_cents": 28241,
+          "price_cents": 1028,
+          "maximum_daily_sales_cents": 41120,
+          "maximum_sales_to_payroll": 1.456,
+          "initial_cash_cents": 42361
+        },
+        {
+          "business_id": "business_4",
+          "employees": 5,
+          "daily_payroll_cents": 40812,
+          "price_cents": 904,
+          "maximum_daily_sales_cents": 45200,
+          "maximum_sales_to_payroll": 1.1075,
+          "initial_cash_cents": 61218
+        },
+        {
+          "business_id": "business_5",
+          "employees": 5,
+          "daily_payroll_cents": 42012,
+          "price_cents": 1358,
+          "maximum_daily_sales_cents": 67900,
+          "maximum_sales_to_payroll": 1.6162,
+          "initial_cash_cents": 63018
+        },
+        {
+          "business_id": "business_6",
+          "employees": 5,
+          "daily_payroll_cents": 39850,
+          "price_cents": 1232,
+          "maximum_daily_sales_cents": 61600,
+          "maximum_sales_to_payroll": 1.5458,
+          "initial_cash_cents": 59775
+        },
+        {
+          "business_id": "business_7",
+          "employees": 4,
+          "daily_payroll_cents": 25860,
+          "price_cents": 830,
+          "maximum_daily_sales_cents": 33200,
+          "maximum_sales_to_payroll": 1.2838,
+          "initial_cash_cents": 38790
+        },
+        {
+          "business_id": "business_8",
+          "employees": 5,
+          "daily_payroll_cents": 42322,
+          "price_cents": 1023,
+          "maximum_daily_sales_cents": 51150,
+          "maximum_sales_to_payroll": 1.2086,
+          "initial_cash_cents": 63483
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 12,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 30,
+          "employment_percent": 87.5,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        }
+      ]
+    },
+    {
+      "seed": 43,
+      "input_mode": "seeded_synthetic",
+      "initial_daily_payroll_cents": 302811,
+      "initial_household_spending_budgets_cents": 274778,
+      "spending_budget_to_payroll": 0.9074,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 40621,
+          "price_cents": 1092,
+          "maximum_daily_sales_cents": 54600,
+          "maximum_sales_to_payroll": 1.3441,
+          "initial_cash_cents": 60931
+        },
+        {
+          "business_id": "business_2",
+          "employees": 4,
+          "daily_payroll_cents": 32437,
+          "price_cents": 947,
+          "maximum_daily_sales_cents": 37880,
+          "maximum_sales_to_payroll": 1.1678,
+          "initial_cash_cents": 48655
+        },
+        {
+          "business_id": "business_3",
+          "employees": 5,
+          "daily_payroll_cents": 41815,
+          "price_cents": 1178,
+          "maximum_daily_sales_cents": 58900,
+          "maximum_sales_to_payroll": 1.4086,
+          "initial_cash_cents": 62722
+        },
+        {
+          "business_id": "business_4",
+          "employees": 5,
+          "daily_payroll_cents": 41000,
+          "price_cents": 898,
+          "maximum_daily_sales_cents": 44900,
+          "maximum_sales_to_payroll": 1.0951,
+          "initial_cash_cents": 61500
+        },
+        {
+          "business_id": "business_5",
+          "employees": 5,
+          "daily_payroll_cents": 46169,
+          "price_cents": 1310,
+          "maximum_daily_sales_cents": 65500,
+          "maximum_sales_to_payroll": 1.4187,
+          "initial_cash_cents": 69253
+        },
+        {
+          "business_id": "business_6",
+          "employees": 5,
+          "daily_payroll_cents": 38219,
+          "price_cents": 819,
+          "maximum_daily_sales_cents": 40950,
+          "maximum_sales_to_payroll": 1.0715,
+          "initial_cash_cents": 57328
+        },
+        {
+          "business_id": "business_7",
+          "employees": 5,
+          "daily_payroll_cents": 35478,
+          "price_cents": 1242,
+          "maximum_daily_sales_cents": 62100,
+          "maximum_sales_to_payroll": 1.7504,
+          "initial_cash_cents": 53217
+        },
+        {
+          "business_id": "business_8",
+          "employees": 4,
+          "daily_payroll_cents": 27072,
+          "price_cents": 1181,
+          "maximum_daily_sales_cents": 47240,
+          "maximum_sales_to_payroll": 1.745,
+          "initial_cash_cents": 40608
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 12,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 30,
+          "employment_percent": 77.5,
+          "defaults": 1,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 1
+          }
+        }
+      ]
+    },
+    {
+      "seed": 44,
+      "input_mode": "seeded_synthetic",
+      "initial_daily_payroll_cents": 303648,
+      "initial_household_spending_budgets_cents": 270323,
+      "spending_budget_to_payroll": 0.8903,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 40340,
+          "price_cents": 1332,
+          "maximum_daily_sales_cents": 66600,
+          "maximum_sales_to_payroll": 1.651,
+          "initial_cash_cents": 60510
+        },
+        {
+          "business_id": "business_2",
+          "employees": 4,
+          "daily_payroll_cents": 29889,
+          "price_cents": 919,
+          "maximum_daily_sales_cents": 36760,
+          "maximum_sales_to_payroll": 1.2299,
+          "initial_cash_cents": 44833
+        },
+        {
+          "business_id": "business_3",
+          "employees": 5,
+          "daily_payroll_cents": 37357,
+          "price_cents": 1188,
+          "maximum_daily_sales_cents": 59400,
+          "maximum_sales_to_payroll": 1.5901,
+          "initial_cash_cents": 56035
+        },
+        {
+          "business_id": "business_4",
+          "employees": 5,
+          "daily_payroll_cents": 42099,
+          "price_cents": 1096,
+          "maximum_daily_sales_cents": 54800,
+          "maximum_sales_to_payroll": 1.3017,
+          "initial_cash_cents": 63148
+        },
+        {
+          "business_id": "business_5",
+          "employees": 5,
+          "daily_payroll_cents": 41570,
+          "price_cents": 1030,
+          "maximum_daily_sales_cents": 51500,
+          "maximum_sales_to_payroll": 1.2389,
+          "initial_cash_cents": 62355
+        },
+        {
+          "business_id": "business_6",
+          "employees": 5,
+          "daily_payroll_cents": 42307,
+          "price_cents": 1382,
+          "maximum_daily_sales_cents": 69100,
+          "maximum_sales_to_payroll": 1.6333,
+          "initial_cash_cents": 63460
+        },
+        {
+          "business_id": "business_7",
+          "employees": 4,
+          "daily_payroll_cents": 32323,
+          "price_cents": 902,
+          "maximum_daily_sales_cents": 36080,
+          "maximum_sales_to_payroll": 1.1162,
+          "initial_cash_cents": 48484
+        },
+        {
+          "business_id": "business_8",
+          "employees": 5,
+          "daily_payroll_cents": 37763,
+          "price_cents": 1326,
+          "maximum_daily_sales_cents": 66300,
+          "maximum_sales_to_payroll": 1.7557,
+          "initial_cash_cents": 56644
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 12,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 30,
+          "employment_percent": 82.5,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        }
+      ]
+    },
+    {
+      "seed": 45,
+      "input_mode": "seeded_synthetic",
+      "initial_daily_payroll_cents": 299692,
+      "initial_household_spending_budgets_cents": 269352,
+      "spending_budget_to_payroll": 0.8988,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 38336,
+          "price_cents": 1227,
+          "maximum_daily_sales_cents": 61350,
+          "maximum_sales_to_payroll": 1.6003,
+          "initial_cash_cents": 57504
+        },
+        {
+          "business_id": "business_2",
+          "employees": 5,
+          "daily_payroll_cents": 45513,
+          "price_cents": 1063,
+          "maximum_daily_sales_cents": 53150,
+          "maximum_sales_to_payroll": 1.1678,
+          "initial_cash_cents": 68269
+        },
+        {
+          "business_id": "business_3",
+          "employees": 5,
+          "daily_payroll_cents": 38471,
+          "price_cents": 1110,
+          "maximum_daily_sales_cents": 55500,
+          "maximum_sales_to_payroll": 1.4426,
+          "initial_cash_cents": 57706
+        },
+        {
+          "business_id": "business_4",
+          "employees": 5,
+          "daily_payroll_cents": 38264,
+          "price_cents": 822,
+          "maximum_daily_sales_cents": 41100,
+          "maximum_sales_to_payroll": 1.0741,
+          "initial_cash_cents": 57396
+        },
+        {
+          "business_id": "business_5",
+          "employees": 4,
+          "daily_payroll_cents": 27835,
+          "price_cents": 1295,
+          "maximum_daily_sales_cents": 51800,
+          "maximum_sales_to_payroll": 1.861,
+          "initial_cash_cents": 41752
+        },
+        {
+          "business_id": "business_6",
+          "employees": 4,
+          "daily_payroll_cents": 31391,
+          "price_cents": 917,
+          "maximum_daily_sales_cents": 36680,
+          "maximum_sales_to_payroll": 1.1685,
+          "initial_cash_cents": 47086
+        },
+        {
+          "business_id": "business_7",
+          "employees": 5,
+          "daily_payroll_cents": 41260,
+          "price_cents": 920,
+          "maximum_daily_sales_cents": 46000,
+          "maximum_sales_to_payroll": 1.1149,
+          "initial_cash_cents": 61890
+        },
+        {
+          "business_id": "business_8",
+          "employees": 5,
+          "daily_payroll_cents": 38622,
+          "price_cents": 836,
+          "maximum_daily_sales_cents": 41800,
+          "maximum_sales_to_payroll": 1.0823,
+          "initial_cash_cents": 57933
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 12,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 30,
+          "employment_percent": 45.0,
+          "defaults": 4,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 4
+          }
+        }
+      ]
+    },
+    {
+      "seed": 41,
+      "input_mode": "frozen_public",
+      "initial_daily_payroll_cents": 596144,
+      "initial_household_spending_budgets_cents": 271007,
+      "spending_budget_to_payroll": 0.4546,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 595,
+          "maximum_daily_sales_cents": 29750,
+          "maximum_sales_to_payroll": 0.3793,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_2",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 480,
+          "maximum_daily_sales_cents": 24000,
+          "maximum_sales_to_payroll": 0.306,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_3",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 515,
+          "maximum_daily_sales_cents": 25750,
+          "maximum_sales_to_payroll": 0.3283,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_4",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 515,
+          "maximum_daily_sales_cents": 20600,
+          "maximum_sales_to_payroll": 0.3283,
+          "initial_cash_cents": 94128
+        },
+        {
+          "business_id": "business_5",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 495,
+          "maximum_daily_sales_cents": 24750,
+          "maximum_sales_to_payroll": 0.3155,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_6",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 430,
+          "maximum_daily_sales_cents": 21500,
+          "maximum_sales_to_payroll": 0.2741,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_7",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 605,
+          "maximum_daily_sales_cents": 30250,
+          "maximum_sales_to_payroll": 0.3856,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_8",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 395,
+          "maximum_daily_sales_cents": 15800,
+          "maximum_sales_to_payroll": 0.2518,
+          "initial_cash_cents": 94128
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 12,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 8
+          }
+        },
+        {
+          "day": 30,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 8
+          }
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "input_mode": "frozen_public",
+      "initial_daily_payroll_cents": 596144,
+      "initial_household_spending_budgets_cents": 281389,
+      "spending_budget_to_payroll": 0.472,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 485,
+          "maximum_daily_sales_cents": 24250,
+          "maximum_sales_to_payroll": 0.3092,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_2",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 555,
+          "maximum_daily_sales_cents": 27750,
+          "maximum_sales_to_payroll": 0.3538,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_3",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 500,
+          "maximum_daily_sales_cents": 20000,
+          "maximum_sales_to_payroll": 0.3187,
+          "initial_cash_cents": 94128
+        },
+        {
+          "business_id": "business_4",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 445,
+          "maximum_daily_sales_cents": 22250,
+          "maximum_sales_to_payroll": 0.2837,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_5",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 485,
+          "maximum_daily_sales_cents": 24250,
+          "maximum_sales_to_payroll": 0.3092,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_6",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 555,
+          "maximum_daily_sales_cents": 27750,
+          "maximum_sales_to_payroll": 0.3538,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_7",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 445,
+          "maximum_daily_sales_cents": 17800,
+          "maximum_sales_to_payroll": 0.2837,
+          "initial_cash_cents": 94128
+        },
+        {
+          "business_id": "business_8",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 515,
+          "maximum_daily_sales_cents": 25750,
+          "maximum_sales_to_payroll": 0.3283,
+          "initial_cash_cents": 117660
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 95.0,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 12,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 7,
+            "Unable to refinance matured debt": 1
+          }
+        },
+        {
+          "day": 30,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 7,
+            "Unable to refinance matured debt": 1
+          }
+        }
+      ]
+    },
+    {
+      "seed": 43,
+      "input_mode": "frozen_public",
+      "initial_daily_payroll_cents": 596144,
+      "initial_household_spending_budgets_cents": 263363,
+      "spending_budget_to_payroll": 0.4418,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 515,
+          "maximum_daily_sales_cents": 25750,
+          "maximum_sales_to_payroll": 0.3283,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_2",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 605,
+          "maximum_daily_sales_cents": 24200,
+          "maximum_sales_to_payroll": 0.3856,
+          "initial_cash_cents": 94128
+        },
+        {
+          "business_id": "business_3",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 425,
+          "maximum_daily_sales_cents": 21250,
+          "maximum_sales_to_payroll": 0.2709,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_4",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 530,
+          "maximum_daily_sales_cents": 26500,
+          "maximum_sales_to_payroll": 0.3378,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_5",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 410,
+          "maximum_daily_sales_cents": 20500,
+          "maximum_sales_to_payroll": 0.2613,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_6",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 425,
+          "maximum_daily_sales_cents": 21250,
+          "maximum_sales_to_payroll": 0.2709,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_7",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 380,
+          "maximum_daily_sales_cents": 19000,
+          "maximum_sales_to_payroll": 0.2422,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_8",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 395,
+          "maximum_daily_sales_cents": 15800,
+          "maximum_sales_to_payroll": 0.2518,
+          "initial_cash_cents": 94128
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 70.0,
+          "defaults": 2,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 2
+          }
+        },
+        {
+          "day": 12,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 7,
+            "Unable to refinance matured debt": 1
+          }
+        },
+        {
+          "day": 30,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 7,
+            "Unable to refinance matured debt": 1
+          }
+        }
+      ]
+    },
+    {
+      "seed": 44,
+      "input_mode": "frozen_public",
+      "initial_daily_payroll_cents": 596144,
+      "initial_household_spending_budgets_cents": 269672,
+      "spending_budget_to_payroll": 0.4524,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 425,
+          "maximum_daily_sales_cents": 21250,
+          "maximum_sales_to_payroll": 0.2709,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_2",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 580,
+          "maximum_daily_sales_cents": 23200,
+          "maximum_sales_to_payroll": 0.3697,
+          "initial_cash_cents": 94128
+        },
+        {
+          "business_id": "business_3",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 480,
+          "maximum_daily_sales_cents": 24000,
+          "maximum_sales_to_payroll": 0.306,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_4",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 500,
+          "maximum_daily_sales_cents": 25000,
+          "maximum_sales_to_payroll": 0.3187,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_5",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 395,
+          "maximum_daily_sales_cents": 19750,
+          "maximum_sales_to_payroll": 0.2518,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_6",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 485,
+          "maximum_daily_sales_cents": 24250,
+          "maximum_sales_to_payroll": 0.3092,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_7",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 395,
+          "maximum_daily_sales_cents": 15800,
+          "maximum_sales_to_payroll": 0.2518,
+          "initial_cash_cents": 94128
+        },
+        {
+          "business_id": "business_8",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 480,
+          "maximum_daily_sales_cents": 24000,
+          "maximum_sales_to_payroll": 0.306,
+          "initial_cash_cents": 117660
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 87.5,
+          "defaults": 0,
+          "balanced": true,
+          "default_reasons": {}
+        },
+        {
+          "day": 12,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 8
+          }
+        },
+        {
+          "day": 30,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 8
+          }
+        }
+      ]
+    },
+    {
+      "seed": 45,
+      "input_mode": "frozen_public",
+      "initial_daily_payroll_cents": 596144,
+      "initial_household_spending_budgets_cents": 269852,
+      "spending_budget_to_payroll": 0.4527,
+      "businesses": [
+        {
+          "business_id": "business_1",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 515,
+          "maximum_daily_sales_cents": 25750,
+          "maximum_sales_to_payroll": 0.3283,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_2",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 495,
+          "maximum_daily_sales_cents": 24750,
+          "maximum_sales_to_payroll": 0.3155,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_3",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 515,
+          "maximum_daily_sales_cents": 25750,
+          "maximum_sales_to_payroll": 0.3283,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_4",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 395,
+          "maximum_daily_sales_cents": 19750,
+          "maximum_sales_to_payroll": 0.2518,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_5",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 380,
+          "maximum_daily_sales_cents": 15200,
+          "maximum_sales_to_payroll": 0.2422,
+          "initial_cash_cents": 94128
+        },
+        {
+          "business_id": "business_6",
+          "employees": 4,
+          "daily_payroll_cents": 62752,
+          "price_cents": 485,
+          "maximum_daily_sales_cents": 19400,
+          "maximum_sales_to_payroll": 0.3092,
+          "initial_cash_cents": 94128
+        },
+        {
+          "business_id": "business_7",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 410,
+          "maximum_daily_sales_cents": 20500,
+          "maximum_sales_to_payroll": 0.2613,
+          "initial_cash_cents": 117660
+        },
+        {
+          "business_id": "business_8",
+          "employees": 5,
+          "daily_payroll_cents": 78440,
+          "price_cents": 515,
+          "maximum_daily_sales_cents": 25750,
+          "maximum_sales_to_payroll": 0.3283,
+          "initial_cash_cents": 117660
+        }
+      ],
+      "checkpoints": [
+        {
+          "day": 6,
+          "employment_percent": 70.0,
+          "defaults": 2,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 2
+          }
+        },
+        {
+          "day": 12,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 7,
+            "Unable to refinance matured debt": 1
+          }
+        },
+        {
+          "day": 30,
+          "employment_percent": 0.0,
+          "defaults": 8,
+          "balanced": true,
+          "default_reasons": {
+            "Two consecutive days of incomplete payroll": 7,
+            "Unable to refinance matured debt": 1
+          }
+        }
+      ]
+    }
+  ]
+}

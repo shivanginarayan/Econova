@@ -10,7 +10,7 @@ export type Entity = {id:string; name:string; kind:string; status:string; bank_i
 export type SourceObservation={item?:string;value?:number;unit?:string;kind?:string;effective_date?:string;variant?:string;source_url?:string;observed_at?:string};
 export type CalibrationSource={actor_id:string;run_id:string;dataset_id:string;source_url:string;category?:string;scope?:string;conversion?:string;accepted?:number;observations?:SourceObservation[]};
 export type World = {simulation_id:string; simulation_tick:number; status:'paused'|'running';calibration?:{calibration_id:string;provider:string;sha256:string;collected_at:string;sources:CalibrationSource[];price_sample_count:number;wage_sample_count:number}|null;
- config:{seed:number; scenario:string}; entities:Entity[]; metrics:Metrics; latest_event_sequence:number; production_model:string;settlement_model?:string};
+ config:{seed:number; scenario:string}; entities:Entity[]; metrics:Metrics; latest_event_sequence:number; production_model:string;operating_model?:string;operating_assumptions?:Record<string,unknown>|null;settlement_model?:string};
 export type EconomyEvent = {sequence:number; simulation_id:string; simulation_tick:number; event_type:string;
  agent_id:string|null; counterparty_id:string|null; amount_cents:number|null; transaction_id:string|null; details:Record<string,unknown>};
 export type Exposure = {kind:string; borrower_id:string; lender_id:string; amount_cents:number; due_tick:number|null};

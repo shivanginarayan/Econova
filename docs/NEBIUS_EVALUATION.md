@@ -100,3 +100,15 @@ Fresh isolated standard/supply cases used scheduled_liquidity_v2. These live run
 - procurement: workflow completed; report declined; supervisor blocked; 6 tool calls; 14 activity events; 57.23 seconds including queueing/polling. Run supply_ac5bb9a171544f7ca636d0eba17a16f5.
 
 No reruns were made to obtain preferred verdicts. A held supplier result remains a held result. The broader model sensitivity evidence is in [MODEL_CREDIBILITY.md](./MODEL_CREDIBILITY.md).
+
+
+## Seven representative live cases — October 27 Pacific
+
+Three policy cases (no shock, well-capitalized80%loss, fragile40%loss), credit with/without a cash gap, and supplier normal/insufficient budget. All use frozen public references, live Nemotron/Nebius, independent review and no automatic settlement. Seven terminal completions; four reviews passed and three were held. Policy fragile and both supplier cases were held. Credit with no gap correctly ended not_requested. One invalid tool attempt was rejected;32accepted/33totaltool calls. None of these statuses implies the supervisor was necessarily correct.
+
+Queue-inclusive median37.81seconds; empirical nearest-rank95thpercentile68.09seconds (the maximum in this seven-case sample). These are local service observations, not model-only latency or a reliability SLA. Every source stayed unchanged and every audit balanced. No reruns to obtain preferred outcomes. Machine-readable case evidence: [agent-reliability.json](./evidence/agent-reliability.json). Reproduce with `python -m scripts.evaluate_agent_reliability`; it consumes live inference and creates seven isolated worlds.
+
+
+## October28cashflow_v2 live checks
+
+Seven representative live cases rerun once against the revised model; all completed, with3passed and4heldreviews. The no-gap credit case correctly requested no loan but its review was held after one rejected tool attempt. Both supplier cases declined/held. The fragile policy was also held. These are observed outcomes, not proof of review correctness. Every source stayed unchanged, every audit balanced and no funds were automatically settled. Queue-inclusive median24.45seconds; nearest-rank95thpercentile38.91seconds (sample maximum). Timing is not a comparative performance claim. See [the exact case record](./evidence/agent-reliability-cashflow-v2.json).

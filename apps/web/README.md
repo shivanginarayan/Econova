@@ -1,6 +1,6 @@
-# Parallax UI
+# Econova UI
 
-The globe and San Francisco city are connected to the Python backend. Financial values, institutions, shocks, agent jobs, supplier contracts, and Fork Reality outcomes come from API responses. The original fixtures remain development references rather than the active economy.
+The main interface is a financial investigation workspace: introduce a bank loss, follow consequences, inspect business credit evidence, compare alternate shocks and rescue policies, and follow supervised agent handoffs. Financial values come from the Python API. The optional city is an illustration; fixtures remain development references.
 
 From the repository root, start the API in one terminal:
 

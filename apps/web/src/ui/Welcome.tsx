@@ -15,11 +15,11 @@ const roles=[
  {name:'Supervisor',text:'Checks the recorded work and can hold a recommendation for review. You decide whether to apply support.',icon:ShieldCheck}
 ];
 export default function Welcome(){const s=useStore();
- return <section className="welcome product-landing" aria-label="About Parallax">
+ return <section className="welcome product-landing" aria-label="About Econova">
   <div className="product-intro">
-   <span className="section-kicker">PARALLAX · BANK-CRISIS SIMULATOR</span>
+   <span className="section-kicker">ECONOVA · BANK-CRISIS SIMULATOR</span>
    <h1>Understand a bank crisis.<br/><span>Explore ways to respond.</span></h1>
-   <p className="product-lead">Parallax is a simulated economy where financial AI agents investigate bank shocks, negotiate credit and compare rescue policies.</p>
+   <p className="product-lead">Econova is a simulated economy where financial AI agents investigate bank shocks, negotiate credit and compare rescue policies.</p>
    <p className="product-intro-detail">Start with connected banks, businesses and households. Introduce a bank loss, see how it affects lending and jobs, then explore what could change the outcome.</p>
    <button className="action-primary welcome-start" disabled={s.busy} onClick={()=>void s.createWorld()}>{s.busy?'Creating economy…':'Start investigation'}<ArrowRight size={19}/></button>
    <p className="welcome-start-note">Opens an interactive economy before you apply a shock. You choose what happens next.</p>

@@ -35,8 +35,8 @@ def test_baseline_unemployment_is_about_four_percent_at_tick_zero(scenario):
     world.audit()
 
 
-def test_credit_crunch_raises_unemployment_gradually_without_trigger_crisis():
-    world = Economy.create("crunch", scenario="credit_crunch")
+def test_legacy_credit_crunch_raises_unemployment_gradually_without_trigger_crisis():
+    world = Economy.create("crunch", scenario="credit_crunch", operating_model="legacy_v1")
     rates = path(world, 30)
     assert rates[-1] > rates[0]
     assert len({round(r, 4) for r in rates}) >= 3, "rise should happen over several ticks, not one cliff"
@@ -81,7 +81,7 @@ def test_crunch_only_run_peaks_at_a_plausible_level(days):
 
 def test_gradual_layoffs_make_crunch_defaults_rarer(monkeypatch):
     def defaults(seed):
-        world = Economy.create("defaults", seed=seed, scenario="credit_crunch")
+        world = Economy.create("defaults", seed=seed, scenario="credit_crunch", operating_model="legacy_v1")
         world.step(30)
         return world.metrics()["business_defaults"]
     seeds = range(1, 11)

@@ -23,7 +23,7 @@ class ProductionRules:
         used = min(stock, required)
         if used:
             cost = self.material_cost(business["id"]) * used // stock
-            quantity = used * 10
+            quantity = used * self.output_per_worker(business)
             self.ledger.post(transaction_id, [(f"{business['id']}:materials", -cost),
                                               (f"{business['id']}:goods", cost)],
                              {"type": "goods_produced", "tick": self.state["tick"],
@@ -37,7 +37,7 @@ class ProductionRules:
         if used < required:
             self.emit("production_limited", business["id"],
                       details={"reason": "insufficient_materials", "materials_required": required,
-                               "materials_used": used, "unproduced_units": (required - used) * 10})
+                               "materials_used": used, "unproduced_units": (required - used) * self.output_per_worker(business)})
 
     def purchase_goods(self, transaction_id, household_id, business_id, quantity):
         if type(quantity) is not int or quantity <= 0:

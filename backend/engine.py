@@ -9,9 +9,10 @@ from backend.interventions import InterventionRules
 from backend.contracts import ContractRules
 from backend.production import ProductionRules
 from backend.labor import LaborRules
+from backend.operating import OperatingRules, OPERATING_MODEL, LEGACY_MODEL
 
 
-class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, LaborRules):
+class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, LaborRules, OperatingRules):
     def __init__(self, state, copy=True):
         # copy=False is only for state that nothing else references, such as freshly parsed JSON.
         self.state = deepcopy(state) if copy else state
@@ -19,9 +20,11 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
         self.state["ledger"] = self.ledger.state
 
     @classmethod
-    def create(cls, simulation_id, seed=42, households=40, businesses=8, banks=5, scenario="standard", calibration_id=None, calibration=None):
+    def create(cls, simulation_id, seed=42, households=40, businesses=8, banks=5, scenario="standard", calibration_id=None, calibration=None, operating_model=OPERATING_MODEL, operating_assumptions=None):
         if scenario not in ("standard", "credit_crunch", "supply_crunch"):
             raise LedgerError("Unknown starting scenario")
+        if operating_model not in (OPERATING_MODEL, LEGACY_MODEL):
+            raise LedgerError("Unknown operating model")
         rng = random.Random(seed)
         if calibration_id is not None:
             from backend.calibration import load, validate
@@ -33,6 +36,7 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                                 "businesses": businesses, "banks": banks, "scenario": scenario},
                      "entities": {}, "ledger": {"accounts": {}, "journal": []},
                      "production_model": "finite_v1",
+                     "operating_model": operating_model,
                      "settlement_model": "scheduled_liquidity_v2",
                      "goods_flow": {"produced_units": 0, "sold_units": 0, "unmet_demand_units": 0},
                      "events": [], "history": []})
@@ -65,6 +69,7 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
             entity["consumption_budget_cents"] = rng.randint(5000, 8500)
             world.state["entities"][entity["employer_id"]]["employees"].append(entity["id"])
         world.apply_baseline_unemployment()
+        world.initialize_operations(operating_assumptions)
         world.initialize_financial_network(scenario)
         world.emit("world_created", details={"seed": seed, "households": households,
                                               "businesses": businesses, "banks": banks})
@@ -194,6 +199,7 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
             tick = self.state["tick"]
             if self.finite_production():
                 self.state["goods_flow"] = {"produced_units": 0, "sold_units": 0, "unmet_demand_units": 0}
+            self.manage_operating_liquidity()
             self.settle_interbank()
             self.refresh_banks()
             self.settle_due_contracts()
@@ -206,12 +212,14 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                     self.material_consumption(business)
                 self.prepare_business(business)
             failed_employers = set()
+            received_wages = {}
             for household in households:
                 if household["employer_id"] is None:
                     continue
                 try:
                     self.pay(f"tick:{tick}:salary:{household['id']}", household["employer_id"],
                              household["id"], household["wage_cents"], "salary")
+                    received_wages[household["id"]] = household["wage_cents"]
                 except LedgerError as error:
                     failed_employers.add(household["employer_id"])
                     self.emit("payment_rejected", household["employer_id"], household["id"],
@@ -227,6 +235,9 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                 for business in businesses:
                     self.produce_goods(business)
             for household in households:
+                if self.circular_flow():
+                    self.consume_household(household, businesses, received_wages.get(household["id"], 0))
+                    continue
                 seller = rng.choice(businesses)
                 if seller["status"] != "active":
                     continue
@@ -282,10 +293,12 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
         entity = self.state["entities"][entity_id]
         view = {**{k: v for k, v in entity.items() if not k.endswith("_account")},
                 "balance_sheet": self.ledger.sheet(entity_id)}
+        if entity["kind"] == "household" and self.circular_flow():
+            view["consumption_budget_cents"] = None  # No fixed spending cap in this version.
         if entity["kind"] == "bank":
             view.update(self.bank_health(entity_id))
         if entity["kind"] == "business" and self.finite_production():
-            view["production_capacity_units"] = len(entity["employees"]) * 10 if entity["status"] == "active" else 0
+            view["production_capacity_units"] = len(entity["employees"]) * self.output_per_worker(entity) if entity["status"] == "active" else 0
         return view
 
     def view(self):
@@ -302,6 +315,8 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                 "config": self.state["config"], "metrics": self.metrics(), "lineage": self.state.get("lineage"),
                 "entities": [self.entity_view(key) for key in self.state["entities"]],
                 "production_model": self.state.get("production_model", "legacy_unlimited"),
+                "operating_model": self.state.get("operating_model", LEGACY_MODEL),
+                "operating_assumptions": self.state.get("operating_assumptions"),
                 "settlement_model": self.state.get("settlement_model", "full_deposit_protection_v1"),
                 "latest_event_sequence": len(self.state["events"]), "calibration": calibration}
 

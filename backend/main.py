@@ -57,7 +57,7 @@ def create_app(db_path=None):
             await task
             await asyncio.gather(*workers)
 
-    app = FastAPI(title="Economy God Mode", version=__version__,
+    app = FastAPI(title="Econova", version=__version__,
                   lifespan=lifespan,
                   description="Financial simulation, Fork Reality, and central-bank agent workflows. All amounts are integer USD cents.")
     default_db = Path(__file__).resolve().parent.parent / "data" / "economy.sqlite3"
