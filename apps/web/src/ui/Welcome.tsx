@@ -2,6 +2,7 @@ import {ArrowRight,Search,ShieldCheck,Workflow} from 'lucide-react';
 import {useStore} from '../state/store';
 import {WorldDataOptions} from './TrackControls';
 import PublicDataPanel from './PublicDataPanel';
+import PublicBenchmarks from './PublicBenchmarks';
 
 const questions=[
  {title:'How does a bank loss spread?',text:'Choose a hypothetical investment loss and follow its effect on bank health, business lending and jobs.'},
@@ -34,6 +35,6 @@ export default function Welcome(){const s=useStore();
   </section>
   <section className="product-section" aria-labelledby="roles-heading"><span className="section-kicker">AI WITH VISIBLE RESPONSIBILITIES</span><h2 id="roles-heading">See what each agent is working on.</h2><p className="product-section-lead">You set the shock. During a policy investigation, these three roles examine the response.</p><div className="product-roles">{roles.map(role=>{const Icon=role.icon;return <article key={role.name}><Icon size={24} aria-hidden="true"/><h3>{role.name}</h3><p>{role.text}</p></article>;})}</div></section>
   <section className="product-scope"><p>For finance learners and instructors exploring how financial problems spread, with inspectable evidence and controlled comparisons.</p><h2>A controlled experiment with a clear starting point.</h2><p>The banks, businesses, households and their finances are synthetic. This is a generic economy, not a model of a particular city. Optional public menu prices and minimum-wage references come from San Francisco and stay fixed within each experiment. Outcomes describe this simulation, rather than predict the real economy.</p></section>
-  <details className="welcome-settings"><summary>Starting economy & data settings</summary><div className="welcome-settings-grid"><label>Starting scenario<select aria-label="Starting scenario" value={s.selectedScenario} onChange={e=>s.set({selectedScenario:e.target.value})}><option value="credit_crunch">Credit crunch — fragile banks</option><option value="standard">Standard — stronger banks</option><option value="supply_crunch">Supply crunch — material shortage</option></select></label><WorldDataOptions/></div><p>Public price/wage references load automatically and are frozen in each new economy.</p><PublicDataPanel/></details>
+  <details className="welcome-settings"><summary>Starting economy & data settings</summary><div className="welcome-settings-grid"><label>Starting scenario<select aria-label="Starting scenario" value={s.selectedScenario} onChange={e=>s.set({selectedScenario:e.target.value})}><option value="credit_crunch">Credit crunch — fragile banks</option><option value="standard">Standard — stronger banks</option><option value="supply_crunch">Supply crunch — material shortage</option></select></label><WorldDataOptions/></div><p>Public price/wage references load automatically and are frozen in each new economy.</p><PublicBenchmarks settings/><PublicDataPanel/></details>
  </section>;
 }

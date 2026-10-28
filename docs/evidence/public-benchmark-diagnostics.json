@@ -1,0 +1,818 @@
+{
+  "benchmark_id": "bench_8c8bf67ae48c5ab3eebbefb1",
+  "scope": "Synthetic standard no-additional-shock diagnostics; first12 stress events per seed; not causal attribution.",
+  "cases": [
+    {
+      "seed": 41,
+      "opening": [
+        {
+          "id": "business_1",
+          "workers": 4,
+          "daily_payroll_cents": 58072,
+          "opening_cash_cents": 699764,
+          "payroll_days": 12.04993800799008
+        },
+        {
+          "id": "business_2",
+          "workers": 5,
+          "daily_payroll_cents": 72590,
+          "opening_cash_cents": 620963,
+          "payroll_days": 8.554387656702025
+        },
+        {
+          "id": "business_3",
+          "workers": 6,
+          "daily_payroll_cents": 62112,
+          "opening_cash_cents": 702181,
+          "payroll_days": 11.305077923750645
+        },
+        {
+          "id": "business_4",
+          "workers": 2,
+          "daily_payroll_cents": 29036,
+          "opening_cash_cents": 861828,
+          "payroll_days": 29.681361069017772
+        },
+        {
+          "id": "business_5",
+          "workers": 4,
+          "daily_payroll_cents": 58072,
+          "opening_cash_cents": 789962,
+          "payroll_days": 13.60314781650365
+        },
+        {
+          "id": "business_6",
+          "workers": 5,
+          "daily_payroll_cents": 51760,
+          "opening_cash_cents": 701087,
+          "payroll_days": 13.544957496136012
+        },
+        {
+          "id": "business_7",
+          "workers": 10,
+          "daily_payroll_cents": 103520,
+          "opening_cash_cents": 504890,
+          "payroll_days": 4.877221792890262
+        },
+        {
+          "id": "business_8",
+          "workers": 2,
+          "daily_payroll_cents": 29036,
+          "opening_cash_cents": 846858,
+          "payroll_days": 29.16579418652707
+        }
+      ],
+      "employment_day60": 95.0,
+      "first_failures": []
+    },
+    {
+      "seed": 42,
+      "opening": [
+        {
+          "id": "business_1",
+          "workers": 14,
+          "daily_payroll_cents": 394170,
+          "opening_cash_cents": 835243,
+          "payroll_days": 2.118991805566126
+        },
+        {
+          "id": "business_2",
+          "workers": 5,
+          "daily_payroll_cents": 51760,
+          "opening_cash_cents": 513112,
+          "payroll_days": 9.913292117465224
+        },
+        {
+          "id": "business_3",
+          "workers": 3,
+          "daily_payroll_cents": 31056,
+          "opening_cash_cents": 628393,
+          "payroll_days": 20.23418985059248
+        },
+        {
+          "id": "business_4",
+          "workers": 2,
+          "daily_payroll_cents": 29036,
+          "opening_cash_cents": 573158,
+          "payroll_days": 19.73956467833035
+        },
+        {
+          "id": "business_5",
+          "workers": 9,
+          "daily_payroll_cents": 253395,
+          "opening_cash_cents": 854785,
+          "payroll_days": 3.3733301762071073
+        },
+        {
+          "id": "business_6",
+          "workers": 1,
+          "daily_payroll_cents": 14518,
+          "opening_cash_cents": 545580,
+          "payroll_days": 37.579556412729026
+        },
+        {
+          "id": "business_7",
+          "workers": 3,
+          "daily_payroll_cents": 31056,
+          "opening_cash_cents": 516663,
+          "payroll_days": 16.636495363214838
+        },
+        {
+          "id": "business_8",
+          "workers": 1,
+          "daily_payroll_cents": 14518,
+          "opening_cash_cents": 549123,
+          "payroll_days": 37.823598291775724
+        }
+      ],
+      "employment_day60": 60.0,
+      "first_failures": [
+        {
+          "sequence": 6223,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 31,
+          "event_type": "credit_rejected",
+          "agent_id": "business_1",
+          "counterparty_id": "bank_1",
+          "amount_cents": 80668,
+          "transaction_id": null,
+          "details": {
+            "purpose": "payroll",
+            "reason": "Borrower credit limit exceeded",
+            "finances": {
+              "captured_tick": 31,
+              "net_worth_cents": -184549,
+              "deposit_cents": 313502,
+              "debt_cents": 498051,
+              "sales_cents": 1309762,
+              "sales_start_tick": 27,
+              "sales_end_tick": 31
+            }
+          }
+        },
+        {
+          "sequence": 6257,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 31,
+          "event_type": "payment_rejected",
+          "agent_id": "business_1",
+          "counterparty_id": "household_36",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: business_1:deposit"
+          }
+        },
+        {
+          "sequence": 6258,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 31,
+          "event_type": "payment_rejected",
+          "agent_id": "business_1",
+          "counterparty_id": "household_37",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: business_1:deposit"
+          }
+        },
+        {
+          "sequence": 6259,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 31,
+          "event_type": "payment_rejected",
+          "agent_id": "business_1",
+          "counterparty_id": "household_38",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: business_1:deposit"
+          }
+        },
+        {
+          "sequence": 6424,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 32,
+          "event_type": "credit_rejected",
+          "agent_id": "business_1",
+          "counterparty_id": "bank_1",
+          "amount_cents": 60419,
+          "transaction_id": null,
+          "details": {
+            "purpose": "payroll",
+            "reason": "Borrower credit limit exceeded",
+            "finances": {
+              "captured_tick": 32,
+              "net_worth_cents": -164300,
+              "deposit_cents": 333751,
+              "debt_cents": 498051,
+              "sales_cents": 1349978,
+              "sales_start_tick": 28,
+              "sales_end_tick": 32
+            }
+          }
+        },
+        {
+          "sequence": 6458,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 32,
+          "event_type": "payment_rejected",
+          "agent_id": "business_1",
+          "counterparty_id": "household_36",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: business_1:deposit"
+          }
+        },
+        {
+          "sequence": 6459,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 32,
+          "event_type": "payment_rejected",
+          "agent_id": "business_1",
+          "counterparty_id": "household_37",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: business_1:deposit"
+          }
+        },
+        {
+          "sequence": 6460,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 32,
+          "event_type": "payment_rejected",
+          "agent_id": "business_1",
+          "counterparty_id": "household_38",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: business_1:deposit"
+          }
+        },
+        {
+          "sequence": 6463,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 32,
+          "event_type": "loan_default",
+          "agent_id": "business_1",
+          "counterparty_id": "bank_1",
+          "amount_cents": 498051,
+          "transaction_id": "tick:32:writeoff:business_1",
+          "details": {}
+        },
+        {
+          "sequence": 6464,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 32,
+          "event_type": "job_lost",
+          "agent_id": "household_4",
+          "counterparty_id": "business_1",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 6465,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 32,
+          "event_type": "job_lost",
+          "agent_id": "household_8",
+          "counterparty_id": "business_1",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 6466,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 32,
+          "event_type": "job_lost",
+          "agent_id": "household_16",
+          "counterparty_id": "business_1",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        }
+      ]
+    },
+    {
+      "seed": 43,
+      "opening": [
+        {
+          "id": "business_1",
+          "workers": 5,
+          "daily_payroll_cents": 72590,
+          "opening_cash_cents": 520212,
+          "payroll_days": 7.166441658630665
+        },
+        {
+          "id": "business_2",
+          "workers": 3,
+          "daily_payroll_cents": 43554,
+          "opening_cash_cents": 865022,
+          "payroll_days": 19.86090829774533
+        },
+        {
+          "id": "business_3",
+          "workers": 3,
+          "daily_payroll_cents": 31056,
+          "opening_cash_cents": 742500,
+          "payroll_days": 23.908423493044822
+        },
+        {
+          "id": "business_4",
+          "workers": 15,
+          "daily_payroll_cents": 422325,
+          "opening_cash_cents": 852136,
+          "payroll_days": 2.0177256851950514
+        },
+        {
+          "id": "business_5",
+          "workers": 2,
+          "daily_payroll_cents": 20704,
+          "opening_cash_cents": 737601,
+          "payroll_days": 35.62601429675425
+        },
+        {
+          "id": "business_6",
+          "workers": 7,
+          "daily_payroll_cents": 72464,
+          "opening_cash_cents": 819285,
+          "payroll_days": 11.306096820490174
+        },
+        {
+          "id": "business_7",
+          "workers": 1,
+          "daily_payroll_cents": 14518,
+          "opening_cash_cents": 769525,
+          "payroll_days": 53.00489048078248
+        },
+        {
+          "id": "business_8",
+          "workers": 2,
+          "daily_payroll_cents": 29036,
+          "opening_cash_cents": 802315,
+          "payroll_days": 27.631733021077284
+        }
+      ],
+      "employment_day60": 57.49999999999999,
+      "first_failures": [
+        {
+          "sequence": 3716,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 15,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_37",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 3719,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 15,
+          "event_type": "job_lost",
+          "agent_id": "household_27",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {
+            "reason": "layoff",
+            "stress": [
+              "missed_payroll"
+            ]
+          }
+        },
+        {
+          "sequence": 3733,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 15,
+          "event_type": "payment_rejected",
+          "agent_id": "household_2",
+          "counterparty_id": "business_2",
+          "amount_cents": 5682,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 3981,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "payment_rejected",
+          "agent_id": "business_4",
+          "counterparty_id": "household_37",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_4:reserves"
+          }
+        },
+        {
+          "sequence": 3984,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "job_lost",
+          "agent_id": "household_3",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 3985,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "job_lost",
+          "agent_id": "household_6",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 3986,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "job_lost",
+          "agent_id": "household_9",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 3987,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "job_lost",
+          "agent_id": "household_11",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 3988,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "job_lost",
+          "agent_id": "household_12",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 3989,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "job_lost",
+          "agent_id": "household_13",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 3990,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "job_lost",
+          "agent_id": "household_21",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        },
+        {
+          "sequence": 3991,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 16,
+          "event_type": "job_lost",
+          "agent_id": "household_22",
+          "counterparty_id": "business_4",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {}
+        }
+      ]
+    },
+    {
+      "seed": 44,
+      "opening": [
+        {
+          "id": "business_1",
+          "workers": 5,
+          "daily_payroll_cents": 140775,
+          "opening_cash_cents": 714190,
+          "payroll_days": 5.073272953294264
+        },
+        {
+          "id": "business_2",
+          "workers": 7,
+          "daily_payroll_cents": 197085,
+          "opening_cash_cents": 784149,
+          "payroll_days": 3.9787350635512597
+        },
+        {
+          "id": "business_3",
+          "workers": 9,
+          "daily_payroll_cents": 253395,
+          "opening_cash_cents": 592623,
+          "payroll_days": 2.3387320191795418
+        },
+        {
+          "id": "business_4",
+          "workers": 3,
+          "daily_payroll_cents": 84465,
+          "opening_cash_cents": 618048,
+          "payroll_days": 7.31720831113479
+        },
+        {
+          "id": "business_5",
+          "workers": 8,
+          "daily_payroll_cents": 225240,
+          "opening_cash_cents": 515255,
+          "payroll_days": 2.2875821346119696
+        },
+        {
+          "id": "business_6",
+          "workers": 2,
+          "daily_payroll_cents": 29036,
+          "opening_cash_cents": 561158,
+          "payroll_days": 19.326284612205537
+        },
+        {
+          "id": "business_7",
+          "workers": 2,
+          "daily_payroll_cents": 29036,
+          "opening_cash_cents": 504616,
+          "payroll_days": 17.37897782063645
+        },
+        {
+          "id": "business_8",
+          "workers": 2,
+          "daily_payroll_cents": 29036,
+          "opening_cash_cents": 582150,
+          "payroll_days": 20.049249207879875
+        }
+      ],
+      "employment_day60": 95.0,
+      "first_failures": []
+    },
+    {
+      "seed": 45,
+      "opening": [
+        {
+          "id": "business_1",
+          "workers": 2,
+          "daily_payroll_cents": 20704,
+          "opening_cash_cents": 642541,
+          "payroll_days": 31.034630989180833
+        },
+        {
+          "id": "business_2",
+          "workers": 2,
+          "daily_payroll_cents": 20704,
+          "opening_cash_cents": 755867,
+          "payroll_days": 36.508259273570324
+        },
+        {
+          "id": "business_3",
+          "workers": 7,
+          "daily_payroll_cents": 197085,
+          "opening_cash_cents": 542928,
+          "payroll_days": 2.754791079990867
+        },
+        {
+          "id": "business_4",
+          "workers": 4,
+          "daily_payroll_cents": 58072,
+          "opening_cash_cents": 677593,
+          "payroll_days": 11.668153326904532
+        },
+        {
+          "id": "business_5",
+          "workers": 13,
+          "daily_payroll_cents": 366015,
+          "opening_cash_cents": 537923,
+          "payroll_days": 1.4696747401062797
+        },
+        {
+          "id": "business_6",
+          "workers": 3,
+          "daily_payroll_cents": 31056,
+          "opening_cash_cents": 505786,
+          "payroll_days": 16.286257083977333
+        },
+        {
+          "id": "business_7",
+          "workers": 4,
+          "daily_payroll_cents": 41408,
+          "opening_cash_cents": 648819,
+          "payroll_days": 15.66892870942813
+        },
+        {
+          "id": "business_8",
+          "workers": 3,
+          "daily_payroll_cents": 43554,
+          "opening_cash_cents": 663073,
+          "payroll_days": 15.224158515865362
+        }
+      ],
+      "employment_day60": 80.0,
+      "first_failures": [
+        {
+          "sequence": 1761,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 9,
+          "event_type": "payment_rejected",
+          "agent_id": "household_11",
+          "counterparty_id": "business_3",
+          "amount_cents": 6660,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 1938,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 10,
+          "event_type": "payment_rejected",
+          "agent_id": "household_1",
+          "counterparty_id": "business_3",
+          "amount_cents": 7770,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 2345,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 12,
+          "event_type": "payment_rejected",
+          "agent_id": "business_5",
+          "counterparty_id": "household_38",
+          "amount_cents": 28155,
+          "transaction_id": null,
+          "details": {
+            "purpose": "salary",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 2348,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 12,
+          "event_type": "job_lost",
+          "agent_id": "household_29",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {
+            "reason": "layoff",
+            "stress": [
+              "missed_payroll"
+            ]
+          }
+        },
+        {
+          "sequence": 2757,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 14,
+          "event_type": "job_lost",
+          "agent_id": "household_33",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {
+            "reason": "layoff",
+            "stress": [
+              "missed_payroll"
+            ]
+          }
+        },
+        {
+          "sequence": 2955,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 15,
+          "event_type": "job_lost",
+          "agent_id": "household_12",
+          "counterparty_id": "business_5",
+          "amount_cents": null,
+          "transaction_id": null,
+          "details": {
+            "reason": "layoff",
+            "stress": [
+              "missed_payroll"
+            ]
+          }
+        },
+        {
+          "sequence": 6602,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 34,
+          "event_type": "payment_rejected",
+          "agent_id": "household_20",
+          "counterparty_id": "business_3",
+          "amount_cents": 5550,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 7965,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 42,
+          "event_type": "payment_rejected",
+          "agent_id": "household_1",
+          "counterparty_id": "business_8",
+          "amount_cents": 7524,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 8023,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 42,
+          "event_type": "payment_rejected",
+          "agent_id": "household_19",
+          "counterparty_id": "business_8",
+          "amount_cents": 5016,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 8026,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 42,
+          "event_type": "payment_rejected",
+          "agent_id": "household_20",
+          "counterparty_id": "business_4",
+          "amount_cents": 4932,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 8202,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 43,
+          "event_type": "payment_rejected",
+          "agent_id": "household_19",
+          "counterparty_id": "business_3",
+          "amount_cents": 5550,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        },
+        {
+          "sequence": 8204,
+          "simulation_id": "diagnostic",
+          "simulation_tick": 43,
+          "event_type": "payment_rejected",
+          "agent_id": "household_20",
+          "counterparty_id": "business_7",
+          "amount_cents": 5520,
+          "transaction_id": null,
+          "details": {
+            "purpose": "purchase",
+            "reason": "Insufficient funds or assets: bank_5:reserves"
+          }
+        }
+      ]
+    }
+  ]
+}

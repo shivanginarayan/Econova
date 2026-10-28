@@ -14,6 +14,7 @@ class WorldConfig(Request):
     banks: int = Field(default=5, ge=1, le=10)
     scenario: Literal["standard", "credit_crunch", "supply_crunch"] = "standard"
     calibration_id: str | None = Field(default=None, pattern=r"^[a-zA-Z0-9_-]{1,64}$")
+    benchmark_id: str | None = Field(default=None, pattern=r"^bench_[a-f0-9]{24}$")
 
 
 class StepRequest(Request):
@@ -198,6 +199,8 @@ class World(BaseModel):
     operating_assumptions: dict[str, Any] | None = None
     settlement_model: Literal["scheduled_liquidity_v2", "full_deposit_protection_v1"] = "full_deposit_protection_v1"
     calibration: dict[str, Any] | None = None
+    public_benchmark: dict[str, Any] | None = None
+    benchmark_mapping: dict[str, Any] | None = None
 
 
 class Event(BaseModel):

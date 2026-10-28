@@ -78,8 +78,9 @@ def router(store):
     @api.get("/worlds/{simulation_id}/data-context")
     def contexts(simulation_id: str):
         world = store.get(simulation_id)
-        return {"origin": "seeded_synthetic", "config": world.state["config"],
-                "reports": store.sponsor_reports(simulation_id, "research")}
+        return {"origin": "public_benchmark_synthetic_network" if world.state.get("public_benchmark") else "seeded_synthetic", "config": world.state["config"],
+                "reports": store.sponsor_reports(simulation_id, "research"),
+                "public_benchmark": world.state.get("public_benchmark"), "benchmark_mapping": world.state.get("benchmark_mapping")}
 
     @api.get("/worlds/{simulation_id}/research-input")
     def research_input(simulation_id: str):

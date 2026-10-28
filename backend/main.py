@@ -92,6 +92,16 @@ def create_app(db_path=None):
     def health():
         return {"status": "ok", "version": __version__}
 
+    @app.get("/api/public-benchmarks/latest")
+    def public_benchmarks():
+        from backend.benchmarks import latest
+        return {"snapshot": latest()}
+
+    @app.get("/api/worlds/{simulation_id}/public-benchmarks")
+    def world_benchmarks(simulation_id: str):
+        world = store.get(simulation_id)
+        return {"snapshot": world.state.get("public_benchmark"), "mapping": world.state.get("benchmark_mapping")}
+
     @app.post("/api/worlds", response_model=World, status_code=201)
     def create_world(config: WorldConfig):
         world = Economy.create(f"world_{uuid4().hex[:16]}", **config.model_dump(exclude_none=True))

@@ -20,11 +20,20 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
         self.state["ledger"] = self.ledger.state
 
     @classmethod
-    def create(cls, simulation_id, seed=42, households=40, businesses=8, banks=5, scenario="standard", calibration_id=None, calibration=None, operating_model=OPERATING_MODEL, operating_assumptions=None):
+    def create(cls, simulation_id, seed=42, households=40, businesses=8, banks=5, scenario="standard", calibration_id=None, calibration=None, operating_model=OPERATING_MODEL, operating_assumptions=None, benchmark_id=None, benchmark=None):
         if scenario not in ("standard", "credit_crunch", "supply_crunch"):
             raise LedgerError("Unknown starting scenario")
         if operating_model not in (OPERATING_MODEL, LEGACY_MODEL):
             raise LedgerError("Unknown operating model")
+        if benchmark_id:
+            from backend.benchmarks import load as load_benchmark
+            from backend.benchmark_mapping import prepare
+            try:
+                benchmark = prepare(benchmark if benchmark is not None else load_benchmark(benchmark_id))
+            except (OSError, ValueError, KeyError, TypeError):
+                raise LedgerError('Public benchmark is missing, invalid or incomplete; no synthetic substitution') from None
+            if benchmark['benchmark_id'] != benchmark_id:
+                raise LedgerError('Benchmark does not match the requested ID')
         rng = random.Random(seed)
         if calibration_id is not None:
             from backend.calibration import load, validate
@@ -68,9 +77,16 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
             entity["wage_cents"] = rng.choice(calibration["daily_wage_cents"]) if calibration_id else rng.randint(6000, 10_000)
             entity["consumption_budget_cents"] = rng.randint(5000, 8500)
             world.state["entities"][entity["employer_id"]]["employees"].append(entity["id"])
+        if benchmark_id:
+            from backend.benchmark_mapping import workforce
+            workforce(world, benchmark)
+            world.state['config']['benchmark_id'] = benchmark_id
         world.apply_baseline_unemployment()
         world.initialize_operations(operating_assumptions)
         world.initialize_financial_network(scenario)
+        if benchmark_id:
+            from backend.benchmark_mapping import bank_ratios
+            bank_ratios(world, benchmark)
         world.emit("world_created", details={"seed": seed, "households": households,
                                               "businesses": businesses, "banks": banks})
         world.state["history"].append(world.metrics())
@@ -318,7 +334,9 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
                 "operating_model": self.state.get("operating_model", LEGACY_MODEL),
                 "operating_assumptions": self.state.get("operating_assumptions"),
                 "settlement_model": self.state.get("settlement_model", "full_deposit_protection_v1"),
-                "latest_event_sequence": len(self.state["events"]), "calibration": calibration}
+                "latest_event_sequence": len(self.state["events"]), "calibration": calibration,
+                "public_benchmark": self.state.get("public_benchmark"),
+                "benchmark_mapping": self.state.get("benchmark_mapping")}
 
     def audit(self):
         result = self.ledger.audit()
