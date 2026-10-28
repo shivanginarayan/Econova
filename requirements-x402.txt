@@ -1,0 +1,3 @@
+# Isolated optional environment; core backend dependencies remain unchanged.
+x402[fastapi,evm,httpx]==2.25.0
+uvicorn>=0.30,<1

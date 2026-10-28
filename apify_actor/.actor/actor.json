@@ -1,0 +1,46 @@
+{
+  "actorSpecification": 1,
+  "name": "economy-public-sf",
+  "title": "Economy God Mode public SF inputs",
+  "version": "0.1",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "input": {
+    "title": "SF public reference collection",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+      "category": {
+        "title": "Reference category",
+        "type": "string",
+        "description": "Prices: posted drink options at Cafe Seventy8. Wages: official SF statutory minimum wage, not average earnings. Fixed sources only.",
+        "editor": "select",
+        "enum": [
+          "prices",
+          "wages"
+        ],
+        "enumTitles": [
+          "Cafe menu prices",
+          "Official minimum wage"
+        ],
+        "default": "prices",
+        "prefill": "prices"
+      }
+    },
+    "required": [
+      "category"
+    ]
+  },
+  "output": {
+    "actorOutputSchemaVersion": 1,
+    "title": "Timestamped public observations",
+    "properties": {
+      "observations": {
+        "type": "string",
+        "title": "Public observations",
+        "description": "Numeric values with units, interpretation, source URL and UTC collection timestamp in the default dataset.",
+        "template": "{{links.apiDefaultDatasetUrl}}/items"
+      }
+    }
+  }
+}

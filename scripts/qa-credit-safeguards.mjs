@@ -1,0 +1,32 @@
+import {chromium,expect} from '@playwright/test';
+const api=process.env.ECONOMY_API_URL??'http://127.0.0.1:8000';
+const ui=process.env.ECONOMY_UI_URL??'http://127.0.0.1:5173';
+const post=async(path,body)=>{const response=await fetch(api+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!response.ok)throw new Error(`API ${response.status}`);return response.json();};
+const world=await post('/api/worlds',{scenario:'standard'}),base=`/api/worlds/${world.simulation_id}`;
+const business=world.entities.find(e=>e.id==='business_1');
+await post(base+'/payments',{transaction_id:'qa-supplier-invoice',payer_id:'business_1',receiver_id:'business_2',amount_cents:business.balance_sheet.assets.deposit});
+const before=await (await fetch(api+base+'/transactions')).json();
+const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1512,height:982}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+try{
+ await page.addInitScript(id=>localStorage.setItem('economy-world',id),world.simulation_id);
+ await page.goto(ui);await page.getByLabel('Agent mode').selectOption('demo');
+ await page.locator('.institution-list summary').click();await page.locator('.institution-list button').filter({hasText:'Business 1'}).click();
+ await page.getByText('Credit safeguards',{exact:true}).click();
+ await page.getByLabel('Credit human approval threshold').fill('0.01');
+ await page.getByRole('button',{name:'Review with safeguards',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Human approval required',exact:true})).toBeVisible({timeout:30000});
+ await expect(page.getByRole('button',{name:'Settle accepted credit',exact:true})).toHaveCount(0);
+ await page.getByLabel('Credit approval rationale').fill('Reviewed payroll coverage and the recorded post-issuance bank limits.');
+ await page.getByRole('button',{name:'Approve reviewed offer',exact:true}).click();
+ await expect(page.getByRole('button',{name:'Settle accepted credit',exact:true})).toBeVisible();
+ const afterReview=await (await fetch(api+base+'/transactions')).json();expect(afterReview.transactions).toEqual(before.transactions);
+ await page.getByRole('button',{name:'Settle accepted credit',exact:true}).click();
+ await expect(page.getByText('Settlement confirmed',{exact:true})).toBeVisible();
+ const audit=await (await fetch(api+base+'/audit')).json();expect(audit.balanced).toBe(true);
+ await page.reload();await expect(page.getByLabel('Agent job progress')).toContainText('settled');
+ await expect(page.getByLabel('Agent job progress')).toContainText('Human decision: approve');
+ await page.setViewportSize({width:390,height:844});expect(await page.locator('.app').evaluate(e=>e.scrollLeft)).toBe(0);
+ expect(errors).toEqual([]);
+ console.log(JSON.stringify({approval_gate:true,no_money_on_approval:true,separate_settlement:true,reload:true,mobile:true,balanced:true}));
+}finally{await browser.close();}

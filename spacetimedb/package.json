@@ -1,0 +1,1 @@
+{"name":"economy-shared-events","private":true,"type":"module","version":"1.0.0","scripts":{"check":"tsc --noEmit"},"dependencies":{"economy-god-mode":"file:..","spacetimedb":"2.13.0"},"devDependencies":{"typescript":"~5.9.3"}}

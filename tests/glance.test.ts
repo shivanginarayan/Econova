@@ -1,0 +1,12 @@
+import {it,expect} from 'vitest';
+import {glanceStory} from '../apps/web/src/data/glance';
+import type {EconomyEvent,Metrics,Report} from '../apps/web/src/data/api';
+const metrics={employment_rate:.8} as Metrics,base={employment_rate:.95} as Metrics;
+const e=(sequence:number,event_type:string,agent_id='business_1'):EconomyEvent=>({sequence,event_type,agent_id,counterparty_id:null,simulation_id:'w',simulation_tick:2,amount_cents:100,transaction_id:null,details:{}});
+it('gives a purpose and next action before any shock',()=>{const r=glanceStory([],metrics,base,null,false);expect(r.title).toBe('Test a bank shock. See who is affected.');expect(r.target).toBe('experiment-controls');});
+it('does not claim no shock while history is loading',()=>{expect(glanceStory([],metrics,base,null,true).label).toBe('LOADING RECORDED EVIDENCE');});
+it('counts affected businesses rather than repeated rejected requests',()=>{const r=glanceStory([e(1,'credit_rejected'),e(2,'credit_rejected'),e(3,'credit_rejected','business_2')],metrics,base,null,false);expect(r.title).toBe('2 businesses could not get credit.');expect(r.body).toContain('fell from 95.0% to 80.0%');});
+it('does not guarantee contagion after a bank loss',()=>{expect(glanceStory([e(1,'bank_asset_loss')],metrics,base,null,false).title).toBe('The bank took a loss. Will it spread?');});
+it('only describes support applied after actual settlement',()=>{expect(glanceStory([e(1,'agent_recommendation_applied')],metrics,base,null,false).label).not.toBe('SUPPORT ACTUALLY APPLIED');expect(glanceStory([e(2,'intervention_settled')],metrics,base,null,false).label).toBe('SUPPORT ACTUALLY APPLIED');});
+it('surfaces supervisor holds and prevents successful-review language',()=>{const r=glanceStory([],metrics,base,{supervision:{status:'blocked'}} as Report,false);expect(r.label).toBe('SUPERVISOR HELD THE RESULT');expect(r.body).toContain('blocked');expect(r.target).toBe('agent-collaboration');});
+it('points to actual agent work when a job is active',()=>{const r=glanceStory([],metrics,base,null,false,true);expect(r.label).toBe('FINANCIAL AGENTS AT WORK');expect(r.target).toBe('agent-collaboration');});

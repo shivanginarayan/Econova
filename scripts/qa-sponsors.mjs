@@ -1,0 +1,36 @@
+import {chromium,expect} from '@playwright/test';
+const backend=process.env.ECONOMY_API_URL??'http://127.0.0.1:8000';
+const frontend=process.env.ECONOMY_UI_URL??'http://127.0.0.1:5173';
+const response=await fetch(backend+'/api/worlds',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({households:8,businesses:2,banks:2})});
+if(!response.ok)throw new Error('Could not create QA world');
+const world=await response.json();
+const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1512,height:982}});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+try{
+ await page.route('**/api/**',async route=>{const original=new URL(route.request().url());if(original.pathname.endsWith('/events/stream'))return route.abort();
+  const response=await route.fetch({url:backend+original.pathname+original.search});await route.fulfill({response});});
+ await page.addInitScript(id=>localStorage.setItem('economy-world',id),world.simulation_id);
+ await page.goto(frontend);
+ await page.getByText('Data, fraud & shared events',{exact:true}).click();
+ await page.getByRole('button',{name:'Load Census + FDIC data',exact:true}).click();
+ await expect(page.locator('.sponsor-context')).toContainText('public_sources',{timeout:60000});
+ await expect(page.locator('.sponsor-context')).toContainText('US Census Bureau');
+ await expect(page.locator('.sponsor-context')).toContainText('FDIC');
+ await page.getByRole('button',{name:'Screen identity',exact:true}).click();
+ await expect(page.locator('.sponsor-integrations')).toContainText('BLOCKED · local_demo');
+ await expect(page.getByRole('button',{name:'Confirm screened $1 payment',exact:true})).toBeDisabled();
+ await page.getByRole('button',{name:'Enable shared event feed',exact:true}).click();
+ await expect(page.locator('.sponsor-integrations')).toContainText('1 / 1 events delivered',{timeout:20000});
+ const base=backend+`/api/worlds/${world.simulation_id}`;
+ await fetch(base+'/step',{method:'POST',headers:{'Content-Type':'application/json'},body:'{"ticks":1}'});
+ await expect(page.locator('.sponsor-integrations')).toContainText('20 / 20 events delivered',{timeout:20000});
+ const shared=await (await fetch(base+'/spacetime/events')).json();expect(shared[0].rows.length).toBe(20);
+ await page.reload();await page.getByText('Data, fraud & shared events',{exact:true}).click();
+ await expect(page.locator('.sponsor-context')).toContainText('public_sources');
+ await expect(page.locator('.sponsor-integrations')).toContainText('BLOCKED · local_demo');
+ await page.setViewportSize({width:390,height:844});
+ expect(await page.locator('.app').evaluate(el=>el.scrollLeft)).toBe(0);
+ expect(errors).toEqual([]);
+ console.log(JSON.stringify({browser_verified:true,public_data:true,blocked_payment:true,shared_events:shared[0].rows.length,reload:true,mobile:true}));
+}finally{await browser.close();}

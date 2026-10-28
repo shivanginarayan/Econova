@@ -1,0 +1,41 @@
+// Uses the live Treasury API and a fresh, disposable simulation. No model calls or payments.
+import {chromium,expect} from '@playwright/test';
+import {mkdir} from 'node:fs/promises';
+const api='http://127.0.0.1:8000',ui='http://127.0.0.1:5173';
+const post=async(path,body)=>{const response=await fetch(api+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!response.ok)throw new Error(`API ${response.status}: ${await response.text()}`);return response.json();};
+const get=async(path)=>{const response=await fetch(api+path);if(!response.ok)throw new Error(`API ${response.status}`);return response.json();};
+const world=await post('/api/worlds',{scenario:'credit_crunch'}),base=`/api/worlds/${world.simulation_id}`;
+const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1512,height:982}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+try{
+ await page.addInitScript(id=>localStorage.setItem('economy-world',id),world.simulation_id);
+ await page.goto(ui);await page.getByText('Build a sourced crisis story',{exact:true}).click();
+ await page.getByRole('button',{name:'Load Treasury data and preview',exact:true}).click();
+ await expect(page.getByLabel('Debt shock preview')).toBeVisible({timeout:35000});
+ const [report]=await get(base+'/shock-stories');
+ expect(report.baseline.provider).toBe('US Treasury Fiscal Data');expect(Number(report.baseline.value_usd)).toBeGreaterThan(0);
+ expect(report.loss_bps).toBe(500);expect(report.assumptions.debt_increase_percent).toBe(25);
+ console.log('Live Treasury preview verified.');
+ expect((await get(base)).entities).toEqual(world.entities);
+ await page.getByRole('button',{name:'Apply this story shock',exact:true}).click();
+ await expect(page.getByRole('button',{name:'Story shock applied',exact:true})).toBeDisabled();
+ const applied=await get(base),equity=w=>w.entities.find(e=>e.id==='bank_1').balance_sheet.equity_cents;
+ expect(equity(applied)).toBe(equity(world)-report.estimated_loss_cents);
+ await post(base+'/shock-stories/apply',{report_id:report.report_id});expect((await get(base)).entities).toEqual(applied.entities);
+ console.log('Audited, retry-safe story application verified.');
+ await page.getByLabel('Agent mode').selectOption('demo');await page.getByRole('button',{name:'Test rescue policies',exact:true}).click();
+ await expect(page.getByLabel('Agent job progress')).toContainText('Report: completed',{timeout:120000});
+ const [job]=await get(base+'/agent-jobs'),analysis=await get(job.report_url);
+ expect(analysis.trace.find(t=>t.tool==='inspect_economy').result.shock_stories[0].report_id).toBe(report.report_id);
+ console.log('Completed analysis includes the sourced story.');
+ await page.getByRole('button',{name:'Fork Reality',exact:true}).click();await expect(page.getByText('One world. Three futures.',{exact:true})).toBeVisible({timeout:120000});
+ await page.getByRole('button',{name:'Back to city',exact:true}).click();
+ await page.reload();await page.getByText('Build a sourced crisis story',{exact:true}).click();
+ await page.getByText('Saved story evidence (1)',{exact:true}).click();await page.getByRole('button',{name:'View saved evidence',exact:true}).click();
+ await expect(page.getByRole('button',{name:'Story shock applied',exact:true})).toBeDisabled();
+ await page.setViewportSize({width:390,height:844});await page.getByLabel('Debt shock preview').scrollIntoViewIfNeeded();
+ await mkdir('artifacts',{recursive:true});await page.screenshot({path:'artifacts/shock-story-mobile.png'});
+ expect(await page.locator('.app').evaluate(e=>e.scrollLeft)).toBe(0);expect(errors).toEqual([]);
+ expect((await get(base+'/audit')).balanced).toBe(true);
+ console.log(JSON.stringify({live_treasury:true,observation_date:report.baseline.observation_date,preview_no_mutation:true,apply_once:true,agent_context:true,forks:true,reload_evidence:true,mobile:true,balanced:true}));
+}finally{await browser.close();}

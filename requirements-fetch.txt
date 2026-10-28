@@ -1,0 +1,3 @@
+# Install separately to isolate Fetch's blockchain/agent dependencies from FastAPI.
+uagents>=0.25.5,<0.26
+httpx>=0.27,<1

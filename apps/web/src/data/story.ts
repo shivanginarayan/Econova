@@ -1,0 +1,8 @@
+import type {EconomyEvent,Report} from './api';
+export type CreditEvidence=Report&{business_id:string;bank_id:string;facts?:Record<string,unknown>;proposal?:{amount_cents:number;rationale:string}|null;business_rationale?:string|null;decision?:{approved:boolean;amount_cents:number;rationale:string;assessment?:{reasons?:string[]}|null}};
+export const checkpointKinds=[{id:'baseline',title:'Starting position'},{id:'shock',title:'Immediate impact'},{id:'credit',title:'Credit decisions'},{id:'business',title:'Business consequences'},{id:'rescue',title:'Rescue applied'}] as const;
+export type CheckpointId=typeof checkpointKinds[number]['id'];
+export function checkpointEvents(id:CheckpointId,events:EconomyEvent[]){return events.filter(e=>id==='shock'?e.event_type==='bank_asset_loss':id==='credit'?['credit_rejected','loan_issued','loan_refinanced'].includes(e.event_type):id==='business'?['job_lost','business_default','production_limited'].includes(e.event_type)||(e.event_type==='payment_rejected'&&e.details.purpose==='salary'):id==='rescue'?e.event_type==='intervention_settled':false);}
+export function salesSince(events:EconomyEvent[],businessId:string){return events.filter(e=>e.event_type==='purchase'&&e.counterparty_id===businessId).reduce((sum,e)=>sum+(e.amount_cents??0),0);}
+export function rejectionSource(reason:string){return /bank capital|bank.*liquidity|bank's post-issuance/.test(reason.toLowerCase())?'Bank constraint':/borrower credit|business debt|payroll shortfall|defaulted business/.test(reason.toLowerCase())?'Borrower constraint':'Recorded lending constraint';}
+export function lastCreditRejection(events:EconomyEvent[],businessId:string){return [...events].reverse().find(e=>e.event_type==='credit_rejected'&&e.agent_id===businessId);}
