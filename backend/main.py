@@ -5,9 +5,11 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from uuid import uuid4
 
-from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi import Depends, FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
+from backend.hosted_access import HostedAccess, HostedMiddleware, authorize_hosted
 
 from backend import __version__
 
@@ -57,12 +59,14 @@ def create_app(db_path=None):
             await task
             await asyncio.gather(*workers)
 
-    app = FastAPI(title="Econova", version=__version__,
+    app = FastAPI(title="Econova", version=__version__, dependencies=[Depends(authorize_hosted)],
                   lifespan=lifespan,
                   description="Financial simulation, Fork Reality, and central-bank agent workflows. All amounts are integer USD cents.")
     default_db = Path(__file__).resolve().parent.parent / "data" / "economy.sqlite3"
     store = Store(db_path or os.getenv("ECONOMY_DB_PATH", str(default_db)))
     app.state.store = store
+    app.state.hosted_access = HostedAccess(store)
+    app.add_middleware(HostedMiddleware, access=app.state.hosted_access)
     app.include_router(sponsor_router(store))
     origins = os.getenv("ECONOMY_CORS_ORIGINS", "http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000,http://127.0.0.1:5173")
     app.add_middleware(CORSMiddleware, allow_origins=[s.strip() for s in origins.split(",") if s.strip()],
@@ -103,9 +107,12 @@ def create_app(db_path=None):
         return {"snapshot": world.state.get("public_benchmark"), "mapping": world.state.get("benchmark_mapping")}
 
     @app.post("/api/worlds", response_model=World, status_code=201)
-    def create_world(config: WorldConfig):
+    def create_world(config: WorldConfig, request: Request):
         world = Economy.create(f"world_{uuid4().hex[:16]}", **config.model_dump(exclude_none=True))
+        if app.state.hosted_access.enabled:
+            world.state["public_tick_limit"] = 240
         store.create(world)
+        app.state.hosted_access.claim(getattr(request.state,"visitor",None), world.state["simulation_id"])
         return world.view()
 
     @app.get("/api/worlds/{simulation_id}", response_model=World)
@@ -129,8 +136,10 @@ def create_app(db_path=None):
         return store.control_playback(simulation_id, "paused")
 
     @app.post("/api/worlds/{simulation_id}/reset", response_model=ResetResult)
-    def reset(simulation_id: str, body: ResetRequest):
-        return store.reset_world(simulation_id, body.request_id)
+    def reset(simulation_id: str, body: ResetRequest, request: Request):
+        result=store.reset_world(simulation_id, body.request_id)
+        app.state.hosted_access.claim(getattr(request.state,"visitor",None), result["simulation_id"])
+        return result
 
     @app.get("/api/worlds/{simulation_id}/events/stream", response_class=StreamingResponse,
              responses={200: {"content": {"text/event-stream": {}}}})
@@ -325,6 +334,9 @@ def create_app(db_path=None):
     def pay_contract(simulation_id: str, contract_id: str, body: ApplyAgentRequest):
         return store.mutate(simulation_id, lambda source: source.pay_contract(body.transaction_id, contract_id))
 
+    static_dir=os.getenv("ECONOMY_STATIC_DIR")
+    if static_dir:
+        app.mount("/", StaticFiles(directory=static_dir, html=True), name="web")
     return app
 
 

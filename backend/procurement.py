@@ -1,6 +1,7 @@
 """Two supplier offers, one counteroffer round, and buyer selection."""
 
 import json
+from copy import deepcopy
 
 from backend.credit_agents import tools_for, tool_call
 from backend.ledger import LedgerError
@@ -35,7 +36,7 @@ class DemoSupplyModel:
         results = [json.loads(m["content"]) for m in messages if m["role"] == "tool"]
         names = {tool["function"]["name"] for tool in tools}
         if not results:
-            name = "inspect_supplier" if "quote_offer" in names else (
+            name = "inspect_supplier" if "inspect_supplier" in names else (
                 "inspect_counteroffer" if "accept_counteroffer" in names else "inspect_offers")
             return tool_call(name, {}, 0)
         view = results[0]
@@ -127,7 +128,17 @@ def run_procurement(store, simulation_id, buyer_id, request):
                 if name == "decline_offer":
                     return ContinueBusiness.model_validate(args).model_dump(), True
                 raise LedgerError("Tool is unavailable to the supplier")
-            session(supplier_id, "supplier", SUPPLIER_TOOLS, quote_handler,
+            def available_supplier_tools():
+                if not inspected:
+                    return [tool for tool in SUPPLIER_TOOLS if tool['function']['name'] == 'inspect_supplier']
+                result = deepcopy([tool for tool in SUPPLIER_TOOLS if tool['function']['name'] != 'inspect_supplier'])
+                for tool in result:
+                    if tool['function']['name'] == 'quote_offer':
+                        field = tool['function']['parameters']['properties']['unit_price_cents']
+                        field['minimum'] = facts['minimum_unit_price_cents']
+                        field['description'] = f"Integer cents, not dollars. Reference is {facts['reference_unit_price_cents']} cents and floor is {facts['minimum_unit_price_cents']} cents. Copy these values without multiplying by100."
+                return result
+            session(supplier_id, "supplier", available_supplier_tools, quote_handler,
                     f"You supply materials as {supplier_id}. Inspect stock, then quote valid terms or decline. "
                     "This quote is provisional; delivery and settlement occur only after buyer selection.")
 

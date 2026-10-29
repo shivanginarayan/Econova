@@ -1,0 +1,225 @@
+{
+  "checked_at": "2026-10-29T01:36:03.015160+00:00",
+  "provider": "nebius",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "calibration_id": "sf_public_20261028_200723_4eadc5",
+  "benchmark_id": "bench_8c8bf67ae48c5ab3eebbefb1",
+  "case_definitions": [
+    {
+      "case": "policy_control",
+      "scenario": "standard",
+      "kind": "central_bank",
+      "loss_bps": 0
+    },
+    {
+      "case": "policy_absorbed_loss",
+      "scenario": "standard",
+      "kind": "central_bank",
+      "loss_bps": 1000
+    },
+    {
+      "case": "policy_fragile_loss",
+      "scenario": "credit_crunch",
+      "kind": "central_bank",
+      "loss_bps": 4000
+    },
+    {
+      "case": "credit_payroll_gap",
+      "scenario": "standard",
+      "kind": "credit",
+      "loss_bps": 0
+    },
+    {
+      "case": "credit_no_gap",
+      "scenario": "standard",
+      "kind": "credit",
+      "loss_bps": 0
+    },
+    {
+      "case": "supplier_budget_too_small",
+      "scenario": "supply_crunch",
+      "kind": "procurement",
+      "loss_bps": 0
+    },
+    {
+      "case": "supplier_normal_budget",
+      "scenario": "supply_crunch",
+      "kind": "procurement",
+      "loss_bps": 0
+    }
+  ],
+  "scope": "Seven predefined cases, one workflow attempt each; at most three transport attempts on explicit transient provider HTTP failures, no retries of financial tools or automatic settlement. Queue-inclusive latency from one local two-worker service, not a performance SLA or statistical reliability estimate.",
+  "counts": {
+    "completed": 5,
+    "failed": 2
+  },
+  "review_counts": {
+    "passed": 3,
+    "blocked": 2,
+    "none": 2
+  },
+  "latency_p50_seconds": 35.59,
+  "latency_p95_seconds": 78.11,
+  "results": [
+    {
+      "case": "policy_control",
+      "job_id": "job_085be619d3504079b9d1721b1587f044",
+      "run_id": "agent_b168e1cb3b584daeb7a6abafdd01ccbe",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 15.27,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 10,
+      "actors": [
+        "investigator",
+        "policy",
+        "supervisor"
+      ],
+      "tool_calls": 4,
+      "tool_statuses": {
+        "accepted": 4
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "policy_absorbed_loss",
+      "job_id": "job_4a28d19f2bae438d90caa131496bb40d",
+      "run_id": "agent_660af818befc4190a02de3ca860c5f9a",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 15.17,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 10,
+      "actors": [
+        "investigator",
+        "policy",
+        "supervisor"
+      ],
+      "tool_calls": 4,
+      "tool_statuses": {
+        "accepted": 4
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "credit_payroll_gap",
+      "job_id": "job_042351c188e4431b8bff4ca323a6aef9",
+      "run_id": "credit_1ff766ae93324df08c533f2b5c169849",
+      "workflow_status": "completed",
+      "report_status": "approved",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 30.45,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 15,
+      "actors": [
+        "bank",
+        "business",
+        "supervisor"
+      ],
+      "tool_calls": 7,
+      "tool_statuses": {
+        "accepted": 7
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "policy_fragile_loss",
+      "job_id": "job_833bffd4aab141fd8721e7674c4a5d2f",
+      "run_id": "agent_99284afe6d444ceebae7794ad461de30",
+      "workflow_status": "failed",
+      "report_status": "failed",
+      "review_status": null,
+      "elapsed_seconds_including_queue": 36.03,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 16,
+      "actors": [
+        "investigator",
+        "policy"
+      ],
+      "tool_calls": 13,
+      "tool_statuses": {
+        "accepted": 5,
+        "rejected": 8
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": "Agent workflow failed; inspect its report"
+    },
+    {
+      "case": "credit_no_gap",
+      "job_id": "job_a9df598f028e491ab333cc48416f85c4",
+      "run_id": "credit_d4cb539b8f1a4024ab9fbd7cf977ada3",
+      "workflow_status": "completed",
+      "report_status": "not_requested",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 35.59,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 6,
+      "actors": [
+        "business",
+        "supervisor"
+      ],
+      "tool_calls": 2,
+      "tool_statuses": {
+        "accepted": 2
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "supplier_normal_budget",
+      "job_id": "job_dedf3d34fb104fe9a884e7523a792cbe",
+      "run_id": "supply_ea8af05bc08348c3829e5c32743d3479",
+      "workflow_status": "completed",
+      "report_status": "declined",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 47.62,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 15,
+      "actors": [
+        "business_2",
+        "business_3",
+        "buyer",
+        "supervisor"
+      ],
+      "tool_calls": 7,
+      "tool_statuses": {
+        "accepted": 7
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "supplier_budget_too_small",
+      "job_id": "job_45dea0de8d0b4609a3af7ce73996e141",
+      "run_id": "supply_3e3e9a6e7e734a1b8f6faf038ebae7b8",
+      "workflow_status": "failed",
+      "report_status": "failed",
+      "review_status": null,
+      "elapsed_seconds_including_queue": 78.11,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 6,
+      "actors": [
+        "business_2",
+        "business_3"
+      ],
+      "tool_calls": 3,
+      "tool_statuses": {
+        "accepted": 3
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": "Agent workflow failed; inspect its report"
+    }
+  ]
+}

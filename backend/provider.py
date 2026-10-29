@@ -1,6 +1,7 @@
 """Small Nebius chat-completions adapter. Credentials never enter prompts/traces."""
 
 import os
+import time
 from urllib.parse import urlsplit
 
 import httpx
@@ -54,15 +55,26 @@ class NebiusModel:
         else:
             prepared.insert(0, {"role": "system", "content": monetary_instruction.strip()})
         payload = {"model": self.model, "messages": prepared, "tools": tools,
-                   "tool_choice": "required", "temperature": 0.2, "max_tokens": 4096}
+                   "tool_choice": "required", "parallel_tool_calls": False, "temperature": 0.2, "max_tokens": 4096}
+        if len(tools) == 1:
+            payload['tool_choice'] = {'type':'function','function':{'name':tools[0]['function']['name']}}
         if "nemotron" in self.model.lower():
             # Nemotron otherwise spends the bounded output on hidden thinking
             # before it reaches a function call. Public tool traces remain intact.
             payload["chat_template_kwargs"] = {"enable_thinking": False}
         try:
             with httpx.Client(timeout=60, trust_env=False, follow_redirects=False) as client:
-                response = client.post(self._url, headers={"Authorization": f"Bearer {self._key}"},
-                                       json=payload)
+                for attempt in range(3):
+                    response = client.post(self._url, headers={"Authorization": f"Bearer {self._key}"}, json=payload)
+                    if response.status_code not in (429, 502, 503, 504, 529) or attempt == 2:
+                        break
+                    # A rejected inference request executed no financial tool. Never retry timeouts,
+                    # tool handlers, settlement, authentication errors or successful model decisions.
+                    try:
+                        delay = min(5.0, max(0.0, float(response.headers.get('Retry-After', 0.5 * (2 ** attempt)))))
+                    except ValueError:
+                        delay = 0.5 * (2 ** attempt)
+                    time.sleep(delay)
                 response.raise_for_status()
                 message = response.json()["choices"][0]["message"]
                 if not isinstance(message, dict) or not message.get("tool_calls"):
@@ -70,6 +82,8 @@ class NebiusModel:
                 # Do not retain hidden reasoning, provider metadata, or arbitrary fields.
                 return {"role": "assistant", "content": message.get("content"), "tool_calls": message["tool_calls"]}
         except httpx.HTTPStatusError as error:
+            if error.response.status_code in (429, 502, 503, 504, 529):
+                raise ProviderError(f"Nebius remained temporarily unavailable after bounded retries (HTTP {error.response.status_code}); no financial action was applied") from None
             raise ProviderError(f"Nebius request failed with HTTP {error.response.status_code}; check model access and configuration") from None
         except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError):
             raise ProviderError("Nebius timed out, could not be reached, or returned an invalid response") from None

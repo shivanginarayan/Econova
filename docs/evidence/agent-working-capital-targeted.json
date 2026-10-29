@@ -1,0 +1,78 @@
+{
+  "checked_at": "2026-10-29T01:43:48.038928+00:00",
+  "provider": "nebius",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "calibration_id": "sf_public_20261028_200723_4eadc5",
+  "benchmark_id": "bench_8c8bf67ae48c5ab3eebbefb1",
+  "case_definitions": [
+    {
+      "case": "policy_fragile_loss",
+      "scenario": "credit_crunch",
+      "kind": "central_bank",
+      "loss_bps": 4000
+    },
+    {
+      "case": "supplier_budget_too_small",
+      "scenario": "supply_crunch",
+      "kind": "procurement",
+      "loss_bps": 0
+    }
+  ],
+  "scope": "2 predefined cases, one workflow attempt each; at most three transport attempts on explicit transient provider HTTP failures, no retries of financial tools or automatic settlement. Queue-inclusive latency from one local two-worker service, not a performance SLA or statistical reliability estimate.",
+  "counts": {
+    "failed": 1,
+    "completed": 1
+  },
+  "review_counts": {
+    "none": 1,
+    "blocked": 1
+  },
+  "latency_p50_seconds": 9.39,
+  "latency_p95_seconds": 11.61,
+  "results": [
+    {
+      "case": "supplier_budget_too_small",
+      "job_id": "job_9297b02c2253445e954030bde28ee668",
+      "run_id": "supply_d1f10987894b41efa2a4b3206051bcb9",
+      "workflow_status": "failed",
+      "report_status": "failed",
+      "review_status": null,
+      "elapsed_seconds_including_queue": 9.39,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 2,
+      "actors": [
+        "business_2"
+      ],
+      "tool_calls": 1,
+      "tool_statuses": {
+        "accepted": 1
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": "Agent workflow failed; inspect its report"
+    },
+    {
+      "case": "policy_fragile_loss",
+      "job_id": "job_23fc1be721bb45c3bb692f957fee3577",
+      "run_id": "agent_025b1afcfcf2418d930b1d37157cdb47",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 11.61,
+      "source_financial_model": "working_capital_v2",
+      "activity_count": 9,
+      "actors": [
+        "investigator",
+        "policy",
+        "supervisor"
+      ],
+      "tool_calls": 3,
+      "tool_statuses": {
+        "accepted": 3
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    }
+  ]
+}

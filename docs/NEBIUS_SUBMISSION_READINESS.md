@@ -1,3 +1,7 @@
+> **Latest October28verification:** The supplier HTTP400 defect was reproduced and fixed. All seven post-fix live Nemotron cases completed; three reviews passed and four held, with unchanged source worlds and balanced audits. Full backend:299passed,1optional skip. Public deployment still needs an accessible hosting account and an actual image/external-access check. See [the current record](./LIVE_REHEARSAL.md).
+
+> **October 28 live/hosting update:** The main live Nemotron investigation and guarded policy comparison passed a clean-browser rehearsal. Hosted access isolation and restart persistence passed locally. Supplier protocol reliability and actual external deployment remain open. See [the complete current rehearsal record](./LIVE_REHEARSAL.md). Earlier sections below are historical audits.
+
 > **October28update:** The structural operating mismatch below has now been addressed for new economies with versioned cashflow_v2. All20matchedno-shock cases have zero business defaults atday60 and92.5–95%employment, without public support; severe shocks still cause failures. See [the current operating model and480-checkpoint evidence](./OPERATING_MODEL.md). Earlier collapse numbers below are retained as the pre-revision diagnosis, not current default behavior. This does not close human usability validation, empirical calibration, hosting, licensing or final submission requirements.
 
 # Econova: NVIDIA / Nebius readiness audit

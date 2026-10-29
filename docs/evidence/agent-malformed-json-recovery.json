@@ -1,0 +1,12 @@
+{
+  "provider": "nebius",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "scope": "Injected malformed JSON followed by one real provider correction; no financial handler or settlement.",
+  "statuses": [
+    "rejected",
+    "rejected",
+    "accepted"
+  ],
+  "handler_executions": 1,
+  "recovered": true
+}

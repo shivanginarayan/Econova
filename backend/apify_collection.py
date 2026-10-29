@@ -58,6 +58,8 @@ def latest_data():
 def ensure(store):
     """Serve cached data immediately; at most one automatic request per six-hour window."""
     data, observed = latest_data()
+    if os.getenv("ECONOMY_PUBLIC_MODE")=="1":
+        return {"configured":False,"data":data,"job":None,"state":"frozen" if data else "unavailable"},False
     ready = configured()
     job = get(store)
     if data and time.time() - observed < AUTO_REFRESH_SECONDS:

@@ -1,6 +1,7 @@
 """Business request → bank underwriting → business acceptance → validated loan."""
 
 import json
+from copy import deepcopy
 
 from pydantic import ValidationError
 
@@ -53,7 +54,7 @@ class DemoCreditModel:
             name = "inspect_business" if "inspect_business" in names else (
                 "inspect_credit" if "inspect_credit" in names else "review_offer")
             return tool_call(name, {}, 0)
-        if "request_credit" in names:
+        if "request_credit" in names or "continue_without_credit" in names:
             facts = results[0]
             amount = min(self.request["max_amount_cents"], facts["payroll_shortfall_cents"])
             if amount and facts["status"] == "active":
@@ -144,6 +145,21 @@ def run_credit(store, simulation_id, business_id, request):
     require_crs = bool(request.get("require_crs") or request.get("crs_profile_id"))
     bank_tools = BANK_TOOLS + (tools_for([("pull_credit_report", "Retrieve the bound business owner's CRS sandbox credit evidence before underwriting. Returns redacted score and risk flags; never raw identities.", InspectArguments)]) if require_crs else [])
 
+    def available_business_tools():
+        if not inspected:
+            return [tool for tool in BUSINESS_TOOLS if tool['function']['name'] == 'inspect_business']
+        result = deepcopy([tool for tool in BUSINESS_TOOLS if tool['function']['name'] != 'inspect_business'])
+        cap = min(request['max_amount_cents'], report['facts']['payroll_shortfall_cents'], report['facts']['credit_headroom_cents'])
+        if cap <= 0:
+            return [tool for tool in result if tool['function']['name'] == 'continue_without_credit']
+        for tool in result:
+            if tool['function']['name'] == 'request_credit':
+                tool['function']['description'] = 'Request payroll credit using integer cents copied from observed facts; never multiply by100 or convert to dollars.'
+                field = tool['function']['parameters']['properties']['amount_cents']
+                field['maximum'] = cap
+                field['description'] = f'Maximum eligible request is exactly {cap} integer cents. Copy that value for full authorized coverage; smaller partial requests are allowed.'
+        return result
+
     def available_bank_tools():
         # Expose actions only after their prerequisites succeeded. A rejected
         # assessment must be corrected before a decision can be proposed.
@@ -163,7 +179,7 @@ def run_credit(store, simulation_id, business_id, request):
         if name == "inspect_business":
             InspectArguments.model_validate(args)
             inspected = True
-            return report["facts"], False
+            return {**report["facts"], "eligible_request_cents": min(request["max_amount_cents"], report["facts"]["payroll_shortfall_cents"], report["facts"]["credit_headroom_cents"]), "monetary_unit": "All *_cents fields are integer cents; copy values without conversion."}, False
         if not inspected:
             raise LedgerError("Inspect business finances before deciding")
         if name == "request_credit":
@@ -171,7 +187,7 @@ def run_credit(store, simulation_id, business_id, request):
             if report["facts"]["status"] != "active":
                 raise LedgerError("Closed businesses cannot request credit")
             if proposal.amount_cents > min(request["max_amount_cents"], report["facts"]["payroll_shortfall_cents"]):
-                raise LedgerError("Proposal exceeds the authorized cap or observed payroll shortfall")
+                raise LedgerError("Copy eligible_request_cents from inspect_business without multiplying by100. Proposal exceeds the authorized cap or observed payroll shortfall.")
             report["proposal"] = proposal.model_dump()
             return report["proposal"], True
         if name == "continue_without_credit":
@@ -246,7 +262,7 @@ def run_credit(store, simulation_id, business_id, request):
         raise LedgerError("Tool is not available during business acceptance")
 
     try:
-        role_loop(store, report, "business", models["business"], BUSINESS_TOOLS, business_handler,
+        role_loop(store, report, "business", models["business"], available_business_tools, business_handler,
                   f"You manage {business_id}. Inspect payroll needs, then request only useful payroll credit or continue without it. "
                   f"The caller authorizes at most {request['max_amount_cents']} cents. Do not request settlement.")
         if report["proposal"] is not None:

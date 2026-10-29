@@ -1,0 +1,132 @@
+{
+  "checked_at": "2026-10-29T01:18:45.585521+00:00",
+  "provider": "nebius",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "calibration_id": "sf_public_20261028_200723_4eadc5",
+  "benchmark_id": "bench_8c8bf67ae48c5ab3eebbefb1",
+  "scope": "Seven predefined cases, one attempt each; no retries or automatic settlement. Queue-inclusive latency from one local two-worker service, not a performance SLA or statistical reliability estimate.",
+  "counts": {
+    "failed": 2,
+    "completed": 5
+  },
+  "review_counts": {
+    "none": 2,
+    "blocked": 4,
+    "passed": 1
+  },
+  "latency_p50_seconds": 42.81,
+  "latency_p95_seconds": 57.0,
+  "results": [
+    {
+      "case": "policy_control",
+      "job_id": "job_1b3b7467745e49d587d6538f0ce2d575",
+      "run_id": "agent_249dba34459e401795494d3b276dee82",
+      "workflow_status": "failed",
+      "report_status": "failed",
+      "review_status": null,
+      "elapsed_seconds_including_queue": 11.5,
+      "tool_calls": 0,
+      "tool_statuses": {},
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": "Agent workflow failed; inspect its report"
+    },
+    {
+      "case": "policy_absorbed_loss",
+      "job_id": "job_959a58e7180e4cb18fe045bd05e6c4bd",
+      "run_id": "agent_2a45909c8b78482da826b981188448f1",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 22.3,
+      "tool_calls": 4,
+      "tool_statuses": {
+        "accepted": 4
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "policy_fragile_loss",
+      "job_id": "job_640202d3e023458d9349c5d3acad7a57",
+      "run_id": "agent_b57ec215257049c98b20df949fbc2134",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 25.38,
+      "tool_calls": 4,
+      "tool_statuses": {
+        "accepted": 4
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "credit_payroll_gap",
+      "job_id": "job_e1fb050144d242609165e58d12d418c8",
+      "run_id": "credit_96c7cf41eea040a08574d9691d0cb075",
+      "workflow_status": "completed",
+      "report_status": "not_requested",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 42.89,
+      "tool_calls": 3,
+      "tool_statuses": {
+        "accepted": 2,
+        "rejected": 1
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "credit_no_gap",
+      "job_id": "job_b11ec63a86434607bc658d0cfc16b69c",
+      "run_id": "credit_639fddd44d664ce89484e13ca6eb1711",
+      "workflow_status": "completed",
+      "report_status": "not_requested",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 42.81,
+      "tool_calls": 2,
+      "tool_statuses": {
+        "accepted": 2
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "supplier_normal_budget",
+      "job_id": "job_f4600f9d9e96482f9265089ad2da6eb9",
+      "run_id": "supply_777d63a789404a7ebd97631c47c49c4b",
+      "workflow_status": "failed",
+      "report_status": "failed",
+      "review_status": null,
+      "elapsed_seconds_including_queue": 51.81,
+      "tool_calls": 3,
+      "tool_statuses": {
+        "accepted": 3
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": "Agent workflow failed; inspect its report"
+    },
+    {
+      "case": "supplier_budget_too_small",
+      "job_id": "job_2c0878ccef4b46748cd2aa005a63f96c",
+      "run_id": "supply_96e94955be1b4ffa9284c78f65474af5",
+      "workflow_status": "completed",
+      "report_status": "declined",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 57.0,
+      "tool_calls": 6,
+      "tool_statuses": {
+        "accepted": 6
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 """Bounded observe–test–revise agent, with persisted public decision traces."""
 
 import json
+from copy import deepcopy
 
 from pydantic import ValidationError
 
@@ -49,12 +50,19 @@ class DemoModel:
 
     def complete(self, messages, tools):
         results = [json.loads(message["content"]) for message in messages if message["role"] == "tool"]
-        if not results:
+        names={tool['function']['name'] for tool in tools}
+        observed=next((r for r in results if 'banks' in r),None)
+        if observed is None:
+            for message in messages:
+                content=message.get('content') or ''
+                if message.get('role')=='user' and 'Captured evidence: ' in content:
+                    observed=json.loads(content.split('Captured evidence: ',1)[1])
+        if not results and 'inspect_economy' in names:
             name, args = "inspect_economy", {}
         else:
             compared = [result for result in results if "fork_id" in result]
             if len(compared) < self.request["max_experiments"]:
-                bank = self.request.get("target_bank_id") or min(results[0]["banks"], key=lambda item: item["capital_ratio"])["bank_id"]
+                bank = self.request.get("target_bank_id") or min(observed["banks"], key=lambda item: item["capital_ratio"])["bank_id"]
                 budget = max(1, self.request["budget_cap_cents"] // (2 ** len(compared)))
                 name, args = "compare_interventions", {"bank_id": bank, "budget_cents": budget}
             else:
@@ -98,13 +106,34 @@ def run_agent(store, simulation_id, request):
                  "recommend_intervention from a comparison returned in THIS run. Use only these tools. "
                  "Do not request settlement, create money, or invent results. Distinguish solvency from liquidity. "
                  "Explain the financial tradeoff briefly using observed evidence, not hidden reasoning. "
+                 "Compare branches using their deltas, not absolute declines alone. No intervention cannot prevent damage already present; if supports do not improve outcomes, explain avoided extra spending without claiming it prevents contraction. "
                  "Public cost means gross disbursement, not net fiscal loss. "
                  f"Limits: {json.dumps(request)}"}]
     policy_handoff = False
     activity(report, store.save_agent, 'investigator', 'Inspecting the captured economy before handing evidence to the policy planner.')
+    def available_tools():
+        if not request.get('agent_review') or not policy_handoff:
+            return tools
+        allowed = {'compare_interventions'} if not comparisons else {'recommend_intervention'}
+        if comparisons and len(comparisons)<request['max_experiments']:
+            allowed.add('compare_interventions')
+        if request.get('allow_paid_research'):
+            allowed.add('buy_market_forecast')
+        result=deepcopy([t for t in planner_tools if t['function']['name'] in allowed])
+        for tool in result:
+            props=tool['function']['parameters']['properties']
+            if tool['function']['name']=='compare_interventions':
+                props['budget_cents']['maximum']=request['budget_cap_cents']
+                props['budget_cents']['description']=f"Integer cents. Maximum budget is {request['budget_cap_cents']} cents; copy this value for the full budget, never multiply by100."
+                props['bank_id']['enum']=[e['id'] for e in source.state['entities'].values() if e['kind']=='bank']
+            if tool['function']['name']=='recommend_intervention':
+                props['fork_id']['enum']=list(comparisons)
+        return result
+
     try:
         for _ in range(10):
-            message = model.complete(messages, tools)
+            current_tools=available_tools()
+            message = model.complete(messages, current_tools)
             if not isinstance(message, dict):
                 raise ProviderError("Model returned an invalid tool-call message")
             calls = message.get("tool_calls")
@@ -126,6 +155,8 @@ def run_agent(store, simulation_id, request):
                     arguments = json.loads(call["function"]["arguments"])
                     if not isinstance(arguments, dict):
                         raise ValueError("Tool arguments must be an object")
+                    if request.get('agent_review') and name not in {t['function']['name'] for t in current_tools}:
+                        raise LedgerError('This action is not available in the current stage; use only the supplied tools and exact returned comparison IDs')
                     if request.get('agent_review') and not policy_handoff and name != 'inspect_economy':
                         raise LedgerError('Investigator must hand its captured evidence to the policy planner before policy tools can run')
                     if name == "inspect_economy":
@@ -137,7 +168,7 @@ def run_agent(store, simulation_id, request):
                         if not inspected:
                             raise LedgerError("Inspect the economy before testing an intervention")
                         if args.budget_cents > request["budget_cap_cents"]:
-                            raise LedgerError("Proposed budget exceeds the run's budget cap")
+                            raise LedgerError(f"Budget exceeds {request['budget_cap_cents']} integer cents. Copy the cap without multiplying by100.")
                         if request.get("target_bank_id") and args.bank_id != request["target_bank_id"]:
                             raise LedgerError("This run must test the caller's selected bank")
                         if len(comparisons) >= request["max_experiments"]:
@@ -160,7 +191,7 @@ def run_agent(store, simulation_id, request):
                     elif name == "recommend_intervention":
                         args = RecommendArguments.model_validate(arguments)
                         if args.fork_id not in comparisons:
-                            raise LedgerError("Recommendation must reference a comparison tested in this run")
+                            raise LedgerError("Use an exact tested comparison ID: " + ", ".join(comparisons))
                         comparison = comparisons[args.fork_id]
                         branch = next(b for b in comparison["branches"] if b["strategy"] == args.strategy)
                         recommendation = {"fork_id": args.fork_id, "strategy": args.strategy,

@@ -1,0 +1,131 @@
+{
+  "checked_at": "2026-10-29T01:24:49.967134+00:00",
+  "provider": "nebius",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "calibration_id": "sf_public_20261028_200723_4eadc5",
+  "benchmark_id": "bench_8c8bf67ae48c5ab3eebbefb1",
+  "scope": "Seven predefined cases, one attempt each; no retries or automatic settlement. Queue-inclusive latency from one local two-worker service, not a performance SLA or statistical reliability estimate.",
+  "counts": {
+    "completed": 7
+  },
+  "review_counts": {
+    "passed": 1,
+    "blocked": 6
+  },
+  "latency_p50_seconds": 23.28,
+  "latency_p95_seconds": 33.27,
+  "results": [
+    {
+      "case": "policy_control",
+      "job_id": "job_b378e18627bd4aeda2c01fc698f4ed87",
+      "run_id": "agent_a7c2808005964240a59f20aa45e8b6d8",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "passed",
+      "elapsed_seconds_including_queue": 8.73,
+      "tool_calls": 3,
+      "tool_statuses": {
+        "accepted": 3
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "policy_absorbed_loss",
+      "job_id": "job_d4bbf648ded449bcb630811b9fc7108f",
+      "run_id": "agent_0ed4660d298341ab97e3d315428e72dd",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 11.83,
+      "tool_calls": 4,
+      "tool_statuses": {
+        "accepted": 4
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "policy_fragile_loss",
+      "job_id": "job_0db8486f50a84718a787539fd5a6107e",
+      "run_id": "agent_3dfc7341ab7d42428e57a7742129749a",
+      "workflow_status": "completed",
+      "report_status": "completed",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 18.14,
+      "tool_calls": 4,
+      "tool_statuses": {
+        "accepted": 4
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "credit_payroll_gap",
+      "job_id": "job_40ca081bda9946049b60a4ea7942b9e6",
+      "run_id": "credit_114af217b64c4cf68ce42f55ac2ef894",
+      "workflow_status": "completed",
+      "report_status": "approved",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 23.33,
+      "tool_calls": 7,
+      "tool_statuses": {
+        "accepted": 7
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "credit_no_gap",
+      "job_id": "job_0cda6d03efec4945b5512b4933e62c08",
+      "run_id": "credit_cd33b500a4b54e3a9dbc366a5cf18887",
+      "workflow_status": "completed",
+      "report_status": "not_requested",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 23.28,
+      "tool_calls": 2,
+      "tool_statuses": {
+        "accepted": 2
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "supplier_budget_too_small",
+      "job_id": "job_0afc6e1bba374499a23ec1244357057b",
+      "run_id": "supply_71a0b215e39541bb9ef8d180d4385528",
+      "workflow_status": "completed",
+      "report_status": "declined",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 32.33,
+      "tool_calls": 7,
+      "tool_statuses": {
+        "accepted": 7
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    },
+    {
+      "case": "supplier_normal_budget",
+      "job_id": "job_f68b04d888eb4fd5b81de0d9b0aa053c",
+      "run_id": "supply_6355b880fd9a4b82aaabd4ea97f4e12c",
+      "workflow_status": "completed",
+      "report_status": "ready",
+      "review_status": "blocked",
+      "elapsed_seconds_including_queue": 33.27,
+      "tool_calls": 9,
+      "tool_statuses": {
+        "accepted": 9
+      },
+      "source_unchanged": true,
+      "audit_balanced": true,
+      "error": null
+    }
+  ]
+}

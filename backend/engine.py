@@ -218,6 +218,8 @@ class Economy(CrisisRules, InterventionRules, ContractRules, ProductionRules, La
 
     def step(self, ticks=1):
         for _ in range(ticks):
+            if self.state.get("public_tick_limit") is not None and self.state["tick"] >= self.state["public_tick_limit"]:
+                raise LedgerError("This hosted experiment reached its step limit. Create a new experiment to continue exploring.")
             self.state["tick"] += 1
             tick = self.state["tick"]
             if self.finite_production():

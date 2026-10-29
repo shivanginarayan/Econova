@@ -106,6 +106,8 @@ class PlaybackStore:
             if previous:
                 return {"source_simulation_id": simulation_id, "simulation_id": previous[0]}
             fresh = Economy.create(f"world_{uuid4().hex[:16]}", **source.state["config"], calibration=source.state.get("calibration"), benchmark=source.state.get("public_benchmark"), operating_model=source.state.get("operating_model", "legacy_v1"), operating_assumptions=source.state.get("operating_assumptions"), financial_model=source.state.get("financial_model", "fixed_limits_v1"), financial_assumptions=source.state.get("financial_assumptions"))
+            if "public_tick_limit" in source.state:
+                fresh.state["public_tick_limit"]=source.state["public_tick_limit"]
             # Reset repeats the source assumptions; it is not a model migration.
             fresh.state["settlement_model"] = source.state.get("settlement_model", "full_deposit_protection_v1")
             fresh.audit()

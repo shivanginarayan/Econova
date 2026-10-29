@@ -1,0 +1,22 @@
+{
+  "local_hosted_rehearsal": true,
+  "external_access_verified": false,
+  "simulation_id": "world_5bf0fca8c3e547fa",
+  "financial_model": "working_capital_v2",
+  "provider": "nebius",
+  "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+  "workflow_status": "completed",
+  "review_status": "blocked",
+  "actors": [
+    "investigator",
+    "policy",
+    "supervisor"
+  ],
+  "tool_calls": 3,
+  "source_unchanged": true,
+  "held_action_blocked": true,
+  "visitor_isolation": true,
+  "refresh_resume": true,
+  "mobile_overflow": false,
+  "page_errors": []
+}

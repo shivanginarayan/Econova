@@ -1,0 +1,19 @@
+{
+  "case": "supplier_budget_too_small",
+  "workflow_status": "failed",
+  "error": "Nebius request failed with HTTP 400; check model access and configuration",
+  "tool_calls": 3,
+  "tool_statuses": [
+    "accepted",
+    "accepted",
+    "rejected"
+  ],
+  "source_unchanged": true,
+  "audit_balanced": true,
+  "scope": "One targeted run after bounded oversized-batch protocol correction; no automatic settlement.",
+  "tool_names": [
+    "inspect_supplier",
+    "quote_offer",
+    "inspect_supplier"
+  ]
+}
