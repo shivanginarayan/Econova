@@ -344,6 +344,7 @@ class AgentRecommendation(BaseModel):
 
 
 class AgentReport(BaseModel):
+    external_research: dict[str, Any] | None = None
     activity: list[dict[str, Any]] = Field(default_factory=list)
     active_agent: str | None = None
     supervision: dict[str, Any] | None = None

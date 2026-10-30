@@ -163,7 +163,7 @@ class Store(CreditStore, SupplyStore, PlaybackStore, JobStore, SponsorStore, Sce
             if row:
                 raise LedgerError(f"Agent run already exists; retrieve or retry it: {row[0]}")
             source = self.load(connection, simulation_id)
-            report = {"run_id": f"agent_{uuid4().hex}", "simulation_id": simulation_id,
+            report = {"external_research": None, "run_id": f"agent_{uuid4().hex}", "simulation_id": simulation_id,
                       "engine_version": __version__, "source_tick": source.state["tick"],
                       "snapshot_sha256": snapshot_hash(source.state), "request": request,
                       "status": "running", "provider": model.provider, "model": model.model,

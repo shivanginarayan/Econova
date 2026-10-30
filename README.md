@@ -69,6 +69,7 @@ On macOS/Linux, use `.venv/bin/python` instead of `.\.venv\Scripts\python.exe`. 
 
 ### Optional integration setup
 
+- **Tavily research:** set server-side `TAVILY_API_KEY` to retrieve public banking context during live policy investigations. The investigator passes dated source links and excerpts to the planner and supervisor; the UI displays them separately from simulated outcomes. One bounded search per investigation; no calibration changes. See [hosted configuration](./deployment/README.md).
 - **Live financial agents:** set `NEBIUS_API_KEY`, `NEBIUS_MODEL`, and optionally `NEBIUS_BASE_URL`. The verified model is `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B`. See [Nemotron setup](./docs/NEMOTRON.md).
 - **Automatic public inputs:** set `APIFY_TOKEN` and `APIFY_ACTOR_ID`. Use our published Actor or deploy the included collector. See [Apify setup and collection limits](./docs/APIFY.md).
 - **CRS underwriting:** configure sandbox login or an access token, the enabled credit product, sponsor-only test profiles, and documented score/risk mappings. Account-specific files are private and are not distributed with the repository. See [credit setup and live verification](./docs/TRACK_IMPLEMENTATION.md).

@@ -23,7 +23,7 @@ export type AgentActivity={sequence:number;at:number;actor:string;target:string|
 export type Supervision={status:'running'|'passed'|'blocked'|'failed';checks:{name:string;passed:boolean}[];rationale:string;provider:string|null;model:string|null};
 export type Report = {request?:{agent_review?:boolean};activity?:AgentActivity[];active_agent?:string|null;supervision?:Supervision|null;supplier_ids?:string[];run_id:string; simulation_id:string; status:string; source_tick:number; snapshot_sha256?:string; provider?:string; model?:string;
  risk_evidence?:{provider:string;score:number|null;risk_decision:string;cached:boolean}|null;approval_reasons?:string[];human_approval?:{decision:string;rationale:string}|null;
- providers?:Record<string,string>; models?:Record<string,string>; error?:string|null; business_id?:string; buyer_id?:string; trace:Trace[];
+ providers?:Record<string,string>; models?:Record<string,string>; error?:string|null; business_id?:string; buyer_id?:string; trace:Trace[]; external_research?:{provider:string;status:string;retrieved_at:string|null;warning:string;sources:{title:string;url:string;excerpt:string;published_date:string|null}[]};
  offers?:Offer[]; selected_offer?:Offer|null; settlement?:unknown;
  recommendation?:{strategy:string; amount_cents:number; rationale:string; bank_id:string|null;fork_id?:string};
  decision?:{approved:boolean; amount_cents:number; rationale:string}; business_accepted?:boolean|null};

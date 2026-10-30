@@ -1,10 +1,8 @@
 """Opt-in hosted judging access: signed visitors, world ownership and bounded jobs."""
-import base64
 import hashlib
 import hmac
 import json
 import os
-import secrets
 import time
 from uuid import uuid4
 
@@ -15,10 +13,10 @@ from starlette.responses import JSONResponse
 class HostedAccess:
     def __init__(self,store):
         self.store=store;self.enabled=os.getenv('ECONOMY_PUBLIC_MODE')=='1'
-        self.password=os.getenv('ECONOMY_ACCESS_PASSWORD','');self.secret=os.getenv('ECONOMY_SESSION_SECRET','')
+        self.secret=os.getenv('ECONOMY_SESSION_SECRET','')
         if not self.enabled:return
-        if len(self.password)<16 or len(self.secret)<32:
-            raise ValueError('Hosted mode requires ECONOMY_ACCESS_PASSWORD (16+characters) and ECONOMY_SESSION_SECRET (32+characters)')
+        if len(self.secret)<32:
+            raise ValueError('Hosted mode requires ECONOMY_SESSION_SECRET (32+characters)')
         with store.connection() as c:
             c.execute('CREATE TABLE IF NOT EXISTS hosted_worlds (world_id TEXT PRIMARY KEY,visitor TEXT NOT NULL)')
             c.execute('CREATE TABLE IF NOT EXISTS hosted_usage (visitor TEXT NOT NULL,bucket INTEGER NOT NULL,kind TEXT NOT NULL,count INTEGER NOT NULL,PRIMARY KEY(visitor,bucket,kind))')
@@ -29,13 +27,6 @@ class HostedAccess:
     def cookie(self,value):
         visitor,sep,signature=(value or '').partition('.')
         return visitor if sep and len(visitor)==32 and hmac.compare_digest(signature,self.signature(visitor)) else None
-
-    def credentials(self,header):
-        try:
-            scheme,encoded=header.split(' ',1)
-            name,sep,password=base64.b64decode(encoded,validate=True).decode().partition(':')
-            return scheme.lower()=='basic' and sep and hmac.compare_digest(name,'econova') and hmac.compare_digest(password.encode(),self.password.encode())
-        except (ValueError,UnicodeError):return False
 
     def claim(self,visitor,world_id):
         if not self.enabled:return
@@ -96,7 +87,7 @@ class HostedAccess:
         if path.endswith(('/agent-jobs','/credit-jobs','/procurement-jobs')):
             if body.get('auto_settle') or not body.get('agent_review'):raise HTTPException(422,'Hosted agent jobs require supervisor review and explicit settlement.')
             if any(type(body.get(k,v)) is not int for k,v in [('ticks',12),('max_experiments',2)]) or body.get('ticks',12)>30 or body.get('max_experiments',2)>2:raise HTTPException(422,'Hosted investigations support up to30steps and2comparisons.')
-            self.usage(visitor,'inference',int(os.getenv('ECONOMY_JOBS_PER_HOUR','12')),int(os.getenv('ECONOMY_GLOBAL_JOBS_PER_HOUR','60')))
+            self.usage(visitor,'inference',int(os.getenv('ECONOMY_JOBS_PER_HOUR','2')),int(os.getenv('ECONOMY_GLOBAL_JOBS_PER_HOUR','10')))
 
 
 async def authorize_hosted(request:Request):
@@ -109,12 +100,9 @@ class HostedMiddleware:
         if not self.access.enabled or scope['type']!='http' or scope['path']=='/health':
             return await self.app(scope,receive,send)
         request=Request(scope)
-        if not self.access.credentials(request.headers.get('authorization','')):
-            response=JSONResponse({'detail':'Judging access requires the supplied credentials.'},401,headers={'WWW-Authenticate':'Basic realm="Econova", charset="UTF-8"'})
-            return await response(scope,receive,send)
         visitor=self.access.cookie(request.cookies.get('econova-visitor'));fresh=not visitor;visitor=visitor or uuid4().hex
         scope.setdefault('state',{})['visitor']=visitor
-        # Browser-origin checks also protect HTTP Basic's ambient credentials.
+        # Keep browser-origin checks for writes using signed visitor cookies.
         origin=request.headers.get('origin')
         if request.method=='POST' and origin and origin.rstrip('/')!=str(request.base_url).rstrip('/'):
             return await JSONResponse({'detail':'Cross-origin writes are disabled.'},403)(scope,receive,send)
